@@ -412,8 +412,8 @@ body {
   flex-shrink: 0;
 }
 
-.p-off { background: var(--accent); color: #fff; }
-.p-def { background: transparent; border: 2px solid var(--defense); color: var(--defense); }
+.p-off { background: #22c55e; color: #fff; }
+.p-def { background: transparent; border: 2px solid #ef4444; color: #ef4444; }
 
 .p-label { font-size: 13px; font-weight: 600; color: var(--text2); }
 
@@ -1710,8 +1710,8 @@ function buildPlayerChips() {
   const defList = document.getElementById('defense-list');
   offList.innerHTML = ''; defList.innerHTML = '';
   for (let i = 1; i <= 5; i++) {
-    offList.appendChild(makeChip('O', i, '#f07820'));
-    defList.appendChild(makeChip('D', i, '#4aa8ff'));
+    offList.appendChild(makeChip('O', i, '#22c55e'));
+    defList.appendChild(makeChip('D', i, '#ef4444'));
   }
 }
 
@@ -1788,11 +1788,11 @@ function applyFormation(name) {
   S.players = [];
   f.O.forEach(([x,y],i) => {
     const c = ftCoord(x, y);
-    S.players.push({ id: ++_pid, x: c.x, y: c.y, team: 'O', number: i+1, color: '#f07820' });
+    S.players.push({ id: ++_pid, x: c.x, y: c.y, team: 'O', number: i+1, color: '#22c55e' });
   });
   f.D.forEach(([x,y],i) => {
     const c = ftCoord(x, y);
-    S.players.push({ id: ++_pid, x: c.x, y: c.y, team: 'D', number: i+1, color: '#4aa8ff' });
+    S.players.push({ id: ++_pid, x: c.x, y: c.y, team: 'D', number: i+1, color: '#ef4444' });
   });
   redraw();
   setStatus(`Formation: ${name.toUpperCase()} — drag players to adjust`);
