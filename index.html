@@ -463,6 +463,127 @@ body {
 }
 
 /* ============================================================
+   PLAYBOOK COACHING GUIDE INFO HUD
+   ============================================================ */
+.info-card {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  max-width: 290px;
+  min-width: 240px;
+  padding: 16px;
+  border-radius: 12px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: auto;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  max-height: calc(100% - 140px);
+  overflow-y: auto;
+}
+
+.info-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 8px;
+  margin-bottom: 4px;
+}
+
+.info-card-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--offense);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-card-close {
+  background: none;
+  border: none;
+  color: var(--text3);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0 4px;
+  transition: color 0.2s;
+}
+.info-card-close:hover {
+  color: var(--accent2);
+}
+
+.info-section-title {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--accent2);
+  margin-top: 6px;
+}
+
+.info-text {
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--text2);
+  font-weight: 500;
+}
+
+.info-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.info-step-item {
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--text2);
+  position: relative;
+  padding-left: 14px;
+}
+
+.info-step-item::before {
+  content: "•";
+  position: absolute;
+  left: 4px;
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.info-toggle-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 49;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  color: var(--text2);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  display: none;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+}
+
+.info-toggle-btn:hover {
+  background: var(--accent);
+  color: #000;
+}
+
+/* ============================================================
    RIGHT SIDEBAR – PLAYERS, PALETTES & CONFIG
    ============================================================ */
 .right-sidebar {
@@ -1277,6 +1398,28 @@ input[type=range].modern-slider::-webkit-slider-thumb:hover {
 
     <div class="rec-badge" id="rec-badge">⏺ RECORDING TIMELAPSE</div>
     <canvas id="board"></canvas>
+
+    <!-- Playbook Guide Card -->
+    <div class="info-card glass" id="play-info-card" style="display: none;">
+      <div class="info-card-header">
+        <span class="info-card-title" id="info-play-title">Playbook Guide</span>
+        <button class="info-card-close" onclick="togglePlayInfo(false)">✕</button>
+      </div>
+      <div class="info-section-title">Tactical Concept</div>
+      <p class="info-text" id="info-play-concept">Select any play from the sidebar to view detailed tactical analysis, coach instructions, and step-by-step actions.</p>
+      
+      <div class="info-section-title">Coaching Instructions</div>
+      <ul class="info-steps" id="info-play-steps">
+        <li class="info-step-item">Click any accordion category to browse the sets.</li>
+        <li class="info-step-item">Select a play to configure coordinates and keyframes.</li>
+        <li class="info-step-item">Click play (▶) to animate the full tactical sequence!</li>
+      </ul>
+    </div>
+
+    <!-- Restore button if collapsed -->
+    <button class="info-toggle-btn" id="play-info-toggle-btn" onclick="togglePlayInfo(true)">
+      💡 Coaching Guide
+    </button>
 
     <!-- Keyframe Timeline Controls -->
     <div class="timeline-panel glass" id="anim-controls">
@@ -2729,6 +2872,346 @@ function toggleAccordion(button) {
 }
 
 // ============================================================
+// PLAYBOOK GUIDE HUD CONTROLLERS
+// ============================================================
+function togglePlayInfo(visible) {
+  const card = document.getElementById('play-info-card');
+  const btn = document.getElementById('play-info-toggle-btn');
+  if (!card || !btn) return;
+  
+  if (visible) {
+    card.style.display = 'flex';
+    btn.style.display = 'none';
+  } else {
+    card.style.display = 'none';
+    btn.style.display = 'flex';
+  }
+}
+
+function showPlaybookInfo(name) {
+  const info = PLAYBOOK_INFO[name];
+  if (!info) return;
+  
+  const titleEl = document.getElementById('info-play-title');
+  const conceptEl = document.getElementById('info-play-concept');
+  const stepsEl = document.getElementById('info-play-steps');
+  if (!titleEl || !conceptEl || !stepsEl) return;
+  
+  titleEl.innerText = info.title;
+  conceptEl.innerText = info.concept;
+  
+  stepsEl.innerHTML = '';
+  info.steps.forEach(stepText => {
+    const li = document.createElement('li');
+    li.className = 'info-step-item';
+    li.innerText = stepText;
+    stepsEl.appendChild(li);
+  });
+  
+  togglePlayInfo(true);
+}
+
+const PLAYBOOK_INFO = {
+  '5out': {
+    title: 'Delay 5-Out Offense',
+    concept: 'Modern spacing set designed to pull the opposing rim protectors away from the paint, leaving it completely vulnerable to backdoor cuts.',
+    steps: [
+      'PG starts at logo, wings SF/SG spaced in deep corners.',
+      'PF/C hold high elbows to keep key empty.',
+      'PG passes wing and cuts baseline for a direct layup.'
+    ]
+  },
+  'spain': {
+    title: 'Spain Pick & Roll',
+    concept: 'The ultimate modern NBA Pick-and-Roll set. Features a secondary backscreen on the roll man\'s defender, causing total coverage confusion.',
+    steps: [
+      'PG drives off high screen from C at the key.',
+      'As C rolls, PF sets a solid backscreen on C\'s defender D5.',
+      'PG feeds rolling C for a dunk or kicks to PF flaring wing.'
+    ]
+  },
+  'pistol': {
+    title: 'Horns Pistol Entry',
+    concept: 'A high-octane Horns transition entry series designed to trigger quick-strike DHOs, wing curls, and paint penetrations.',
+    steps: [
+      'PG passes to PF at the high right elbow.',
+      'PG runs a tight handoff curl off PF to attack baseline.',
+      'C sets downscreen for weakside SG flare catch-and-shoot.'
+    ]
+  },
+  'zoom': {
+    title: 'Zoom Action Set',
+    concept: 'A highly dynamic baseline-to-wing action combining a downscreen into a dribble hand-off (DHO) to free up primary shooters.',
+    steps: [
+      'PF sets baseline downscreen for SG curling to wing.',
+      'C receives high pass and immediately enters DHO with SG.',
+      'SG explodes off DHO for wing mid-range jumper or drive.'
+    ]
+  },
+  'motion': {
+    title: 'Pass & Cut Motion',
+    concept: 'A highly versatile NCAA-style fluid offense that relies on relentless passing, fast spacing adjustments, and immediate cuts.',
+    steps: [
+      'PG holds top key. SF/PF occupy weakside slots.',
+      'PG initiates wing pass to SF and cuts hard to key center.',
+      'SF feeds PG for layup, or reverses ball to PF for reset.'
+    ]
+  },
+  'chicago': {
+    title: 'Delay Chicago Set',
+    concept: 'Modern delay set utilizing a high downscreen immediately followed by a dribble hand-off to create downhill drive angles.',
+    steps: [
+      'C downscreens SF in weakside corner who curls high.',
+      'PG passes to SF and runs immediate hand-off screen.',
+      'SF drives baseline downhill attacking paint corner.'
+    ]
+  },
+  'delayflare': {
+    title: 'Delay Flare Attack',
+    concept: 'Weakside spacing attack that catches defenders sagging in the paint during high-elbow center ball handling.',
+    steps: [
+      'PG controls top key, C occupies high post elbow.',
+      'C sets hard flare screen on SF\'s defender at right block.',
+      'PG skips overtop pass to SF in corner for open flared 3.'
+    ]
+  },
+  'delaykeep': {
+    title: 'Delay Keep Fake DHO',
+    concept: 'Coaching trick play that exploits defensive anticipation on DHO sequences, giving PG an open lane to drive.',
+    steps: [
+      'C holds top key, PG starts on wing and SG slot.',
+      'SG curls as if receiving hand-off. PG fakes ball delivery.',
+      'PG turns corner quickly, driving unprotected center paint for a dunk.'
+    ]
+  },
+  'spainleak': {
+    title: 'Spain Roll-to-Pop Leak',
+    concept: 'A clever variation of Spain P&R where the back-screener leaks out to the perimeter to punish helping defenders.',
+    steps: [
+      'PG runs high P&R off C. PF prepares backscreen.',
+      'C rolls down key drawing both center defenders.',
+      'PF leaks to 3-point logo for open high-percentage skip shot.'
+    ]
+  },
+  'spainhammer': {
+    title: 'Spain Hammer Action',
+    concept: 'Combining Spain P&R drive gravity with a weakside blind screen to yield wide-open baseline corner three-pointers.',
+    steps: [
+      'PG initiates screen, penetrates down right baseline.',
+      'PF sprints weakside baseline to set backscreen on SG\'s defender.',
+      'PG fires cross-court laser pass to SG for open corner three.'
+    ]
+  },
+  'zoomdouble': {
+    title: 'Zoom Double Stagger',
+    concept: 'A staggered double-screen variation of Zoom that creates maximum separation for catch-and-shoot wing threats.',
+    steps: [
+      'PF and PG set staggered downscreens in the right lane.',
+      'SG curls deep baseline off both screens to wing top.',
+      'C passes from high post to SG for open catch-and-shoot 3.'
+    ]
+  },
+  'zoompitch': {
+    title: 'Zoom Pitch Reversal',
+    concept: 'A lightning-fast wing reversal play where the ball handler pitches a soft hand-off to baseline cutters.',
+    steps: [
+      'PG reverses ball to PF at elbow slot.',
+      'SF cuts hard baseline curling off C screen near block.',
+      'PF pitches quick underhanded pass to SF for lay-in drive.'
+    ]
+  },
+  'hornsflare': {
+    title: 'Horns Flare Set',
+    concept: 'Classic Horns entry set that uses double elbow screen gravity to free up the primary playmaker on the perimeter.',
+    steps: [
+      'PF and C set dual elbow screens. PG drives off right.',
+      'C sets second backscreen. PG flares deep wing.',
+      'PF skips pass to flared PG for catch-and-shoot 3-pointer.'
+    ]
+  },
+  'hornsflex': {
+    title: 'Horns Flex Screen',
+    concept: 'A hybrid Horns set ending in a traditional NCAA Flex baseline backscreen to free up cutting guards.',
+    steps: [
+      'PG enters ball to C at high post.',
+      'PF baseline screens for SG cutting baseline from corner.',
+      'C bounce passes to SG baseline cutter for a direct layup.'
+    ]
+  },
+  'hornsrub': {
+    title: 'Horns Elbow Rub',
+    concept: 'Elbow screen-the-screener set that leaves the center rolling to the basket completely unmarked.',
+    steps: [
+      'PF sets high screen for C. C rolls down key.',
+      'C sets rub screen on PG\'s defender D1.',
+      'PG feeds rolling C for high-flying alley-oop slam!'
+    ]
+  },
+  'princetonchin': {
+    title: 'Princeton Chin Series',
+    concept: 'The cornerstone Princeton system set that uses elbow entries and baseline back-cuts to break aggressive defenses.',
+    steps: [
+      'PG passes elbow PF. C sets hard backscreen on key.',
+      'SF cuts backdoor under backscreen directly to hoop.',
+      'PF feeds cutting SF for layup or hands off to curling PG.'
+    ]
+  },
+  'princetonpoint': {
+    title: 'Princeton Point Action',
+    concept: 'Princeton play featuring high-low split cuts to isolate mismatch advantages in the key.',
+    steps: [
+      'PG passes PF at elbow. C and PG run intersecting cuts.',
+      'C rolls down block following split cut confusion.',
+      'PF feeds rolling C at block for deep post score.'
+    ]
+  },
+  'trianglepost': {
+    title: 'Triangle Low Post Entry',
+    concept: 'Traditional Tex Winter sideline triangle set that uses low-post entries to trigger dual baseline split cuts.',
+    steps: [
+      'SF feeds low-post C. PG and SF split cut the basket.',
+      'C assesses cutting angles of PG and SF.',
+      'C passes baseline to cutting SF for open baseline layup.'
+    ]
+  },
+  'trianglepinch': {
+    title: 'Triangle Pinch Post',
+    concept: 'Sideline triangle set utilizing a high post \'pinch\' entry to establish quick handoff drive options.',
+    steps: [
+      'PG enters ball to pinch post PF at high key.',
+      'PG runs tight rub cut off PF, brushing off defender.',
+      'PF hands off to PG driving left lane for high-percentage score.'
+    ]
+  },
+  'trianglepig': {
+    title: 'Triangle Blind Pig',
+    concept: 'Coaching classic backdoor action triggered when wing defenders aggressively deny triangle sideline passes.',
+    steps: [
+      'PG passes PF at elbow. Wing SF defender denies pass.',
+      'SF backdoor cuts baseline instantly behind defender.',
+      'PF hits SF with quick one-handed bounce feed for lay-in.'
+    ]
+  },
+  'inbound': {
+    title: 'BLOB Stack Inbound',
+    concept: 'Standard baseline stack inbound play designed to confuse zone defensive alignments in inbound situations.',
+    steps: [
+      'O2/O3 stack key. O4 screens defender O5.',
+      'O5 curls baseline under screen to release.',
+      'O1 (PG) inbound passes to O5 for baseline layup.'
+    ]
+  },
+  'blobbox': {
+    title: 'BLOB Box Cross-Screen',
+    concept: 'Baseline out of bounds box formation that sets cross screens to create open perimeter looks.',
+    steps: [
+      'Offense sets high-low box block. Bigs screen high.',
+      'SG/SF flare out to left and right corners.',
+      'PG inbounds to SG in corner for open baseline 3.'
+    ]
+  },
+  'blobline': {
+    title: 'BLOB Line Stack Peel',
+    concept: 'Linear stack baseline set that splits in four directions, completely overwhelming man-to-man coverage.',
+    steps: [
+      'Stack line on lane. Players split on whistle.',
+      'SG/SF/PF peel out wide to corners and top.',
+      'C curls paint last, PG feeds C for easy lay-in.'
+    ]
+  },
+  'slobdiamond': {
+    title: 'SLOB Diamond Stack',
+    concept: 'Sideline out of bounds entry set utilizing a four-player diamond stack to safely trigger perimeter resets.',
+    steps: [
+      'Offense sets diamond stack in right slot.',
+      'C screens PG\'s defender to release PG to wing.',
+      'SF inbounds ball to PG on wing. Offense resets.'
+    ]
+  },
+  'slobelevator': {
+    title: 'SLOB Elevator Gate',
+    concept: 'Sideline elevator gate set designed to free up primary three-point shooters behind closed doors.',
+    steps: [
+      'SG cuts hard between PF and C in high lane.',
+      'PF and C quickly close the \'elevator gate\' behind SG.',
+      'SF inbounds to open SG behind gate for three-pointer.'
+    ]
+  },
+  'packline': {
+    title: 'Pack-Line Defense',
+    concept: 'NCAA standard packline defense. Focuses on compressing the paint and forcing contested outside jump shots.',
+    steps: [
+      'Defenders compact within 16ft \'pack line\' boundary.',
+      'Paint drives are immediately met with helping wall.',
+      'Defenders scramble and contest hard on skip passes.'
+    ]
+  },
+  'press131': {
+    title: '1-3-1 Full Court Press',
+    concept: 'Aggressive full-court 1-3-1 trapping system that forces turnovers along the sidelines and half-court line.',
+    steps: [
+      'Inbound trapped by D1 and D4 at sideline.',
+      'D3 denies middle passes to isolate ball handler.',
+      'D5 plays deep safety near baseline to prevent overtop skips.'
+    ]
+  },
+  'zone23': {
+    title: '2-3 Zone Defense',
+    concept: 'Classic 2-3 zone defense. Shift coverage dynamically to cover high-post entry cuts.',
+    steps: [
+      'Guards D1/D2 drop down to cover elbow entries.',
+      'Wings shift wide to close out corner shooters.',
+      'C (D4) steps up to contest high-post cutters.'
+    ]
+  },
+  'zone32': {
+    title: '3-2 Zone Trapping',
+    concept: '3-2 perimeter pressure defense. Focuses on trapping baseline corners and wing scoring threats.',
+    steps: [
+      'Ball enters wing, D2 shifts wide to trap ball handler.',
+      'D5 slides down key to deny baseline drives.',
+      'D2 and D5 lock wing player in sideline double-team.'
+    ]
+  },
+  'boxone': {
+    title: 'Box-and-One junk Defense',
+    concept: 'Junk defense layout combining a 4-man zone box with a single shadow defender locking down the opponent\'s star scorer.',
+    steps: [
+      'Four defenders form compact zone box around paint.',
+      'Shadow defender D1 tracks star player lockstep.',
+      'Box scrambles to close out if star passes ball out.'
+    ]
+  },
+  'triangle2': {
+    title: 'Triangle-and-Two Defense',
+    concept: 'Hybrid defensive layout featuring a 3-man zone triangle in the key paired with two shadow lock down defenders.',
+    steps: [
+      'Defenders form paint-protecting zone triangle.',
+      'D1 and D2 lock down dual star perimeter targets.',
+      'D2 steps in front of curling cutter to steal pass.'
+    ]
+  },
+  'press221': {
+    title: '2-2-1 Full Court Press',
+    concept: 'Full-court press designed to guide ball handlers into sideline traps while protecting the deep baseline.',
+    steps: [
+      'Front line D1/D2 steer ball handler to sideline.',
+      'Second line D3/D4 slide to intercept pass angles.',
+      'D1 and D3 close sideline trap. D5 sits safety back.'
+    ]
+  },
+  'pressdouble': {
+    title: 'Run & Double Inbound Trap',
+    concept: 'High-risk, high-reward run-and-double press that traps the inbounding pass immediately to create turnovers.',
+    steps: [
+      'D1 and D2 sprint immediately to trap inbounder.',
+      'Remaining defenders play intercept lines.',
+      'D1 knocks ball loose from trapped PG for easy steal.'
+    ]
+  }
+};
+
+// ============================================================
 // 2026 MODERN PLAYBOOK OFFENSE & DEFENSE ANIMATED DATABASE
 // ============================================================
 const PLAYBOOK = {
@@ -3802,6 +4285,9 @@ function applyFormation(name) {
   S.currentFrameIdx = 0;
   renderTimelineUI();
   restoreFrameData(0);
+
+  // Dynamically update and display the Playbook Coaching Guide
+  showPlaybookInfo(name);
 
   setStatus(`Preloaded Play: ${name.toUpperCase()} successfully deployed. Press PLAY (▶) below to watch the animation!`);
 }
