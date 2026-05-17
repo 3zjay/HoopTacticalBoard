@@ -4196,6 +4196,40 @@ function applyFormation(name) {
 
   S.keyframes = [];
   
+  const isZoneOrInbound = name.toLowerCase().includes('zone') || 
+                          name.toLowerCase().includes('boxone') || 
+                          name.toLowerCase().includes('triangle2') ||
+                          name.toLowerCase().includes('inbound') ||
+                          name.toLowerCase().includes('blob') ||
+                          name.toLowerCase().includes('slob');
+
+  // Math helper for high-precision 2026 court coordinate remapping (half-court only)
+  function scaleCoords(xFt, yFt) {
+    let x = xFt;
+    let y = yFt;
+    
+    if (S.courtMode === 'half') {
+      // Map offense/matchup players gracefully to realistic pockets outside the paint
+      if (x > 12) {
+        if (x <= 18) {
+          x = 12 + (x - 12) * 3.0; // Stretches top of key from 18 to 30 (outside 3-point arc)
+        } else {
+          x = 30 + (x - 18) * 0.5; // Stretches wings from 22 to 32 (outside 3-point wing arc)
+        }
+      }
+      
+      // Smoothly expand sideline players wider to true baseline corners
+      if (y < 25) {
+        y = 25 - (25 - y) * 1.15;
+        y = Math.max(1.8, y);
+      } else if (y > 25) {
+        y = 25 + (y - 25) * 1.15;
+        y = Math.min(48.2, y);
+      }
+    }
+    return [x, y];
+  }
+
   // Populate multi-keyframe animations
   playFrames.forEach((frameData) => {
     const framePlayers = [];
@@ -4204,19 +4238,7 @@ function applyFormation(name) {
     
     // Scale offense players with dynamic high-precision spacing
     frameData.O.forEach(([xFt, yFt], i) => {
-      let x = xFt;
-      let y = yFt;
-      
-      if (S.courtMode === 'half') {
-        // Shift perimeter players outside the actual 3-point line
-        if (x > 15) x += 10;
-        else if (x > 8) x += 6;
-        
-        // Spread corners wider to actual sidelines
-        if (y < 8) y = Math.max(1.8, y - 2.5);
-        else if (y > 42) y = Math.min(48.2, y + 2.5);
-      }
-      
+      const [x, y] = scaleCoords(xFt, yFt);
       const px = S.courtX + x * S.scale;
       const py = S.courtY + y * S.scale;
       framePlayers.push({
@@ -4230,7 +4252,7 @@ function applyFormation(name) {
       });
     });
 
-    // Scale defense players with dynamic basket-alignment
+    // Scale defense players
     frameData.D.forEach(([xFt, yFt], i) => {
       let x = xFt;
       let y = yFt;
@@ -4239,19 +4261,20 @@ function applyFormation(name) {
       const [offXFt, offYFt] = frameData.O[i] || [xFt, yFt];
       
       if (S.courtMode === 'half') {
-        // Check if defender is on the wrong side (to the right of the offense)
-        if (xFt > offXFt) {
-          // Mirror defender's x coordinate to be on the basket side
-          const dx = xFt - offXFt;
-          x = offXFt - dx;
+        if (!isZoneOrInbound) {
+          // Man-to-Man Alignment: Correct defenders standing on the wrong side
+          if (xFt > offXFt) {
+            const dx = xFt - offXFt;
+            x = offXFt - dx;
+          }
+          // Scale matchup defender using the same mathematical remapping
+          const [sx, sy] = scaleCoords(x, y);
+          x = sx;
+          y = sy;
+        } else {
+          // Zone Defenses & Inbound plays: Keep defenders exactly in their designed strategic zone spaces
+          // No scaling or mirroring applied to prevent defensive breakdown
         }
-        
-        // Apply court mode shifting
-        if (x > 15) x += 10;
-        else if (x > 8) x += 6;
-        
-        if (y < 8) y = Math.max(1.8, y - 2.5);
-        else if (y > 42) y = Math.min(48.2, y + 2.5);
       }
       
       const px = S.courtX + x * S.scale;
@@ -4267,19 +4290,13 @@ function applyFormation(name) {
       });
     });
 
-    // Ball placement with dynamic shifting
+    // Ball placement
     let frameBall = { x: S.courtX + S.courtW/2, y: S.courtY + S.courtH/2, size: 9, dragging: false };
     if (frameData.ball) {
-      let [ballX, ballY] = frameData.ball;
-      if (S.courtMode === 'half') {
-        if (ballX > 15) ballX += 10;
-        else if (ballX > 8) ballX += 6;
-        
-        if (ballY < 8) ballY = Math.max(1.8, ballY - 2.5);
-        else if (ballY > 42) ballY = Math.min(48.2, ballY + 2.5);
-      }
-      frameBall.x = S.courtX + ballX * S.scale;
-      frameBall.y = S.courtY + ballY * S.scale;
+      const [ballXFt, ballYFt] = frameData.ball;
+      const [bx, by] = scaleCoords(ballXFt, ballYFt);
+      frameBall.x = S.courtX + bx * S.scale;
+      frameBall.y = S.courtY + by * S.scale;
     } else {
       frameBall.x = framePlayers[0].x + playerRadius() * 0.7;
       frameBall.y = framePlayers[0].y + playerRadius() * 0.7;
@@ -4290,15 +4307,7 @@ function applyFormation(name) {
     if (frameData.strokes) {
       frameData.strokes.forEach(st => {
         const scaledPts = st.pts.map(([sxFt, syFt]) => {
-          let sx = sxFt;
-          let sy = syFt;
-          if (S.courtMode === 'half') {
-            if (sx > 15) sx += 10;
-            else if (sx > 8) sx += 6;
-            
-            if (sy < 8) sy = Math.max(1.8, sy - 2.5);
-            else if (sy > 42) sy = Math.min(48.2, sy + 2.5);
-          }
+          const [sx, sy] = scaleCoords(sxFt, syFt);
           return {
             x: S.courtX + sx * S.scale,
             y: S.courtY + sy * S.scale
@@ -4317,9 +4326,10 @@ function applyFormation(name) {
     const frameLabels = [];
     if (frameData.labels) {
       frameData.labels.forEach(lb => {
+        const [lx, ly] = scaleCoords(lb.xFt, lb.yFt);
         frameLabels.push({
-          x: S.courtX + lb.xFt * S.scale,
-          y: S.courtY + lb.yFt * S.scale,
+          x: S.courtX + lx * S.scale,
+          y: S.courtY + ly * S.scale,
           text: lb.text,
           color: lb.color || 'var(--accent2)'
         });
