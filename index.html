@@ -762,6 +762,72 @@ input[type=range].modern-slider::-webkit-slider-thumb:hover {
   transform: scale(0.97);
 }
 
+/* Accordion Collapsible Playbook UI */
+.accordion-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 5px;
+}
+
+.accordion-item {
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.accordion-trigger {
+  width: 100%;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  color: var(--text2);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  outline: none;
+}
+
+.accordion-trigger:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--accent);
+}
+
+.accordion-trigger.active {
+  color: var(--accent2);
+  background: rgba(255, 107, 0, 0.04);
+  border-bottom: 1px solid var(--border);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+  padding: 0 8px;
+}
+
+.accordion-content.active {
+  max-height: 600px;
+  padding: 8px;
+  overflow-y: auto;
+}
+
+.acc-chevron {
+  font-size: 8px;
+  transition: transform 0.3s;
+}
+
+.accordion-trigger.active .acc-chevron {
+  transform: rotate(180deg);
+}
+
 /* saved plays input */
 .play-save-box {
   display: flex;
@@ -1302,21 +1368,78 @@ input[type=range].modern-slider::-webkit-slider-thumb:hover {
       </label>
     </div>
 
-    <div class="rs-title">Modern Offense Plays</div>
-    <div class="preset-grid">
-      <button class="formation-btn" onclick="applyFormation('5out')">Delay 5-Out</button>
-      <button class="formation-btn" onclick="applyFormation('spain')">Spain P&R</button>
-      <button class="formation-btn" onclick="applyFormation('pistol')">Horns Pistol</button>
-      <button class="formation-btn" onclick="applyFormation('zoom')">Zoom Set</button>
-      <button class="formation-btn" onclick="applyFormation('motion')">Pass & Cut Motion</button>
-      <button class="formation-btn" onclick="applyFormation('inbound')">BLOB Stack Inbound</button>
-    </div>
+    <div class="rs-title">Tactical Playbook (33 Sets)</div>
+    <div class="accordion-wrap">
+      
+      <!-- Accordion 1: Modern Offenses -->
+      <div class="accordion-item">
+        <button class="accordion-trigger active" onclick="toggleAccordion(this)">🔥 Modern Offense Series <span class="acc-chevron">▼</span></button>
+        <div class="accordion-content active">
+          <div class="preset-grid">
+            <button class="formation-btn" onclick="applyFormation('5out')">Delay 5-Out</button>
+            <button class="formation-btn" onclick="applyFormation('spain')">Spain P&R</button>
+            <button class="formation-btn" onclick="applyFormation('pistol')">Horns Pistol</button>
+            <button class="formation-btn" onclick="applyFormation('zoom')">Zoom Set</button>
+            <button class="formation-btn" onclick="applyFormation('motion')">Pass & Cut</button>
+            <button class="formation-btn" onclick="applyFormation('chicago')">Delay Chicago</button>
+            <button class="formation-btn" onclick="applyFormation('delayflare')">Delay Flare</button>
+            <button class="formation-btn" onclick="applyFormation('delaykeep')">Delay Keep</button>
+            <button class="formation-btn" onclick="applyFormation('spainleak')">Spain Leak</button>
+            <button class="formation-btn" onclick="applyFormation('spainhammer')">Spain Hammer</button>
+            <button class="formation-btn" onclick="applyFormation('zoomdouble')">Zoom Double</button>
+            <button class="formation-btn" onclick="applyFormation('zoompitch')">Zoom Pitch</button>
+          </div>
+        </div>
+      </div>
 
-    <div class="rs-title">Defensive Spacing Sets</div>
-    <div class="preset-grid">
-      <button class="formation-btn" onclick="applyFormation('packline')">Pack-Line</button>
-      <button class="formation-btn" onclick="applyFormation('press131')">1-3-1 Press Trap</button>
-      <button class="formation-btn" onclick="applyFormation('zone23')">2-3 Zone Motion</button>
+      <!-- Accordion 2: Classic/Tactical -->
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">🎯 Classic & Tactical <span class="acc-chevron">▼</span></button>
+        <div class="accordion-content">
+          <div class="preset-grid">
+            <button class="formation-btn" onclick="applyFormation('hornsflare')">Horns Flare</button>
+            <button class="formation-btn" onclick="applyFormation('hornsflex')">Horns Flex</button>
+            <button class="formation-btn" onclick="applyFormation('hornsrub')">Horns Rub</button>
+            <button class="formation-btn" onclick="applyFormation('princetonchin')">Princeton Chin</button>
+            <button class="formation-btn" onclick="applyFormation('princetonpoint')">Princeton Point</button>
+            <button class="formation-btn" onclick="applyFormation('trianglepost')">Triangle Post</button>
+            <button class="formation-btn" onclick="applyFormation('trianglepinch')">Triangle Pinch</button>
+            <button class="formation-btn" onclick="applyFormation('trianglepig')">Blind Pig</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion 3: Special Inbounds -->
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">📥 Special Inbound Sets <span class="acc-chevron">▼</span></button>
+        <div class="accordion-content">
+          <div class="preset-grid">
+            <button class="formation-btn" onclick="applyFormation('inbound')">BLOB Stack</button>
+            <button class="formation-btn" onclick="applyFormation('blobbox')">BLOB Box</button>
+            <button class="formation-btn" onclick="applyFormation('blobline')">BLOB Line Stack</button>
+            <button class="formation-btn" onclick="applyFormation('slobdiamond')">SLOB Diamond</button>
+            <button class="formation-btn" onclick="applyFormation('slobelevator')">SLOB Elevator</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion 4: Defensive Systems -->
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">🛡️ Defensive Systems <span class="acc-chevron">▼</span></button>
+        <div class="accordion-content">
+          <div class="preset-grid">
+            <button class="formation-btn" onclick="applyFormation('packline')">Pack-Line</button>
+            <button class="formation-btn" onclick="applyFormation('press131')">1-3-1 Press</button>
+            <button class="formation-btn" onclick="applyFormation('zone23')">2-3 Zone Motion</button>
+            <button class="formation-btn" onclick="applyFormation('zone32')">3-2 Zone</button>
+            <button class="formation-btn" onclick="applyFormation('boxone')">Box-and-One</button>
+            <button class="formation-btn" onclick="applyFormation('triangle2')">Triangle & Two</button>
+            <button class="formation-btn" onclick="applyFormation('press221')">2-2-1 Press</button>
+            <button class="formation-btn" onclick="applyFormation('pressdouble')">Run & Double</button>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <div class="rs-title">Saved Sequences</div>
@@ -2589,6 +2712,22 @@ function toggleSpacingGrid(checked) {
   redraw();
 }
 
+function toggleAccordion(button) {
+  const content = button.nextElementSibling;
+  const isActive = button.classList.contains('active');
+  
+  const allTriggers = document.querySelectorAll('.accordion-trigger');
+  const allContents = document.querySelectorAll('.accordion-content');
+  
+  allTriggers.forEach(t => t.classList.remove('active'));
+  allContents.forEach(c => c.classList.remove('active'));
+  
+  if (!isActive) {
+    button.classList.add('active');
+    content.classList.add('active');
+  }
+}
+
 // ============================================================
 // 2026 MODERN PLAYBOOK OFFENSE & DEFENSE ANIMATED DATABASE
 // ============================================================
@@ -2862,6 +3001,704 @@ const PLAYBOOK = {
       ],
       labels: [{ xFt: 3, yFt: 3, text: 'C kicks out to wide-open SF in the corner for 3!' }]
     }
+  ],
+  'chicago': [
+    // Frame 0: Setup
+    {
+      O: [[18, 25], [22, 6], [22, 44], [6, 4], [6, 46]],
+      D: [[20, 25], [22, 10], [22, 40], [8, 6], [8, 44]],
+      labels: [{ xFt: 3, yFt: 3, text: 'Delay Chicago: Setup' }]
+    },
+    // Frame 1: Downscreen
+    {
+      O: [[18, 28], [22, 6], [16, 28], [6, 4], [8, 38]],
+      D: [[20, 29], [22, 10], [17, 30], [8, 6], [10, 36]],
+      strokes: [
+        { type: 'screen', pts: [[6, 46], [8, 38]], color: '#ff6b00' },
+        { type: 'curve', pts: [[22, 44], [18, 38], [16, 28]], color: '#10b981' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'C downscreens SF who curls hard to top' }]
+    },
+    // Frame 2: Handoff
+    {
+      O: [[18, 28], [22, 6], [14, 28], [6, 4], [8, 38]],
+      D: [[20, 29], [22, 10], [15, 29], [8, 6], [10, 36]],
+      ball: [14, 28],
+      strokes: [
+        { type: 'dashed', pts: [[16, 28], [14, 28]], color: 'rgba(255, 255, 255, 0.45)' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PG hands off to SF attacking paint for baseline drive!' }]
+    }
+  ],
+  'delayflare': [
+    // Frame 0: Setup
+    {
+      O: [[18, 25], [22, 6], [22, 44], [6, 4], [6, 46]],
+      D: [[20, 25], [22, 10], [22, 40], [8, 6], [8, 44]],
+      labels: [{ xFt: 3, yFt: 3, text: 'Delay Flare: PG skips opposite wing' }]
+    },
+    // Frame 1: Flare Screen
+    {
+      O: [[18, 20], [22, 6], [22, 44], [6, 4], [15, 35]],
+      D: [[20, 20], [22, 10], [22, 40], [8, 6], [16, 32]],
+      strokes: [
+        { type: 'screen', pts: [[6, 46], [15, 35]], color: '#ff6b00' },
+        { type: 'curve', pts: [[22, 44], [18, 44]], color: '#10b981' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'C sets flare screen, freeing SF on the right wing' }]
+    },
+    // Frame 2: Shot
+    {
+      O: [[18, 20], [22, 6], [22, 44], [6, 4], [15, 35]],
+      D: [[20, 20], [22, 10], [20, 42], [8, 6], [16, 32]],
+      ball: [22, 44],
+      strokes: [
+        { type: 'dashed', pts: [[18, 20], [22, 44]], color: 'rgba(255, 255, 255, 0.45)' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PG skips pass to SF for an open flared 3!' }]
+    }
+  ],
+  'delaykeep': [
+    // Frame 0: Setup
+    {
+      O: [[18, 25], [22, 6], [22, 44], [6, 4], [6, 46]],
+      D: [[20, 25], [22, 10], [22, 40], [8, 6], [8, 44]],
+      labels: [{ xFt: 3, yFt: 3, text: 'Delay Keep: DHO Fake action' }]
+    },
+    // Frame 1: Fake DHO
+    {
+      O: [[18, 20], [18, 20], [22, 44], [6, 4], [6, 46]],
+      D: [[19, 21], [20, 16], [22, 40], [8, 6], [8, 44]],
+      strokes: [
+        { type: 'curve', pts: [[22, 6], [18, 20]], color: '#10b981' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'SG curls to top. PG fakes DHO and keeps ball!' }]
+    },
+    // Frame 2: Dunk
+    {
+      O: [[6, 25], [18, 20], [22, 44], [6, 4], [6, 46]],
+      D: [[10, 25], [20, 16], [22, 40], [8, 6], [8, 44]],
+      ball: [6, 25],
+      strokes: [
+        { type: 'curve', pts: [[18, 20], [12, 22], [6, 25]], color: '#10b981' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PG drives center paint alone for rolling dunk!' }]
+    }
+  ],
+  'spainleak': [
+    // Frame 0: Setup
+    {
+      O: [[18, 25], [22, 6], [22, 44], [12, 18], [12, 32]],
+      D: [[20, 25], [22, 10], [22, 40], [14, 18], [14, 32]],
+      labels: [{ xFt: 3, yFt: 3, text: 'Spain Leak: Roll vs Pop options' }]
+    },
+    // Frame 1: Screen Collapses
+    {
+      O: [[16, 31], [22, 6], [22, 44], [13, 23], [14, 25]],
+      D: [[17, 29], [22, 10], [22, 40], [14, 21], [15, 27]],
+      ball: [16, 31],
+      strokes: [
+        { type: 'screen', pts: [[12, 32], [14, 25]], color: '#ff6b00' },
+        { type: 'screen', pts: [[12, 18], [13, 23]], color: '#ff6b00' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'Double screen triggers paint recovery focus' }]
+    },
+    // Frame 2: Pop to Logo
+    {
+      O: [[16, 31], [22, 6], [22, 44], [18, 18], [23, 25]],
+      D: [[17, 29], [22, 10], [22, 40], [16, 18], [18, 25]],
+      ball: [23, 25],
+      strokes: [
+        { type: 'dashed', pts: [[16, 31], [23, 25]], color: 'rgba(255, 255, 255, 0.45)' },
+        { type: 'curve', pts: [[14, 25], [19, 25], [23, 25]], color: '#10b981' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'C leaks out to 3-point logo. PG skips back for open three!' }]
+    }
+  ],
+  'spainhammer': [
+    // Frame 0: Setup
+    {
+      O: [[18, 25], [22, 6], [22, 44], [12, 18], [12, 32]],
+      D: [[20, 25], [22, 10], [22, 40], [14, 18], [14, 32]],
+      labels: [{ xFt: 3, yFt: 3, text: 'Spain Hammer: Drive & Skip corner' }]
+    },
+    // Frame 1: Drive Baseline
+    {
+      O: [[10, 44], [22, 6], [22, 44], [12, 18], [12, 32]],
+      D: [[12, 42], [22, 10], [22, 40], [14, 18], [14, 32]],
+      ball: [10, 44],
+      strokes: [
+        { type: 'curve', pts: [[18, 25], [14, 40], [10, 44]], color: '#10b981' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PG attacks baseline. PF sprints to weakside corner SG.' }]
+    },
+    // Frame 2: Hammer Screen
+    {
+      O: [[10, 44], [6, 4], [22, 44], [6, 12], [12, 32]],
+      D: [[12, 42], [6, 6], [22, 40], [8, 14], [14, 32]],
+      ball: [6, 4],
+      strokes: [
+        { type: 'screen', pts: [[12, 18], [6, 12]], color: '#ff6b00' },
+        { type: 'dashed', pts: [[10, 44], [6, 4]], color: 'rgba(255, 255, 255, 0.45)' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PF screens defender at block. PG skips baseline pass to SG!' }]
+    }
+  ],
+  'zoomdouble': [
+    // Frame 0: Setup
+    {
+      O: [[18, 25], [9, 10], [9, 40], [21, 3], [21, 47]],
+      D: [[16, 25], [11, 12], [11, 38], [23, 6], [23, 44]],
+      ball: [21, 47],
+      labels: [{ xFt: 3, yFt: 3, text: 'Zoom Double: Staggered screens baseline' }]
+    },
+    // Frame 1: Stagger Curl
+    {
+      O: [[18, 15], [16, 22], [9, 40], [15, 10], [21, 47]],
+      D: [[16, 18], [17, 24], [11, 38], [17, 12], [23, 44]],
+      ball: [21, 47],
+      strokes: [
+        { type: 'screen', pts: [[21, 3], [15, 10]], color: '#ff6b00' },
+        { type: 'screen', pts: [[18, 25], [18, 15]], color: '#ff6b00' },
+        { type: 'curve', pts: [[9, 10], [14, 18], [16, 22]], color: '#10b981' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PF and PG set staggered downscreens. SG curls off both.' }]
+    },
+    // Frame 2: Shot Entry
+    {
+      O: [[18, 15], [16, 22], [9, 40], [15, 10], [21, 47]],
+      D: [[16, 18], [20, 22], [11, 38], [17, 12], [23, 44]],
+      ball: [16, 22],
+      strokes: [
+        { type: 'dashed', pts: [[21, 47], [16, 22]], color: 'rgba(255, 255, 255, 0.45)' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'C passes from elbow to SG for open wing three!' }]
+    }
+  ],
+  'zoompitch': [
+    // Frame 0: Setup
+    {
+      O: [[18, 25], [22, 6], [22, 44], [12, 10], [12, 40]],
+      D: [[20, 25], [22, 10], [22, 40], [14, 12], [14, 38]],
+      labels: [{ xFt: 3, yFt: 3, text: 'Zoom Pitch: Wing reversal handoff' }]
+    },
+    // Frame 1: Reverse Entry
+    {
+      O: [[18, 25], [22, 6], [12, 32], [12, 10], [12, 40]],
+      D: [[20, 25], [22, 10], [14, 33], [14, 12], [14, 38]],
+      ball: [12, 10],
+      strokes: [
+        { type: 'dashed', pts: [[18, 25], [12, 10]], color: 'rgba(255, 255, 255, 0.45)' },
+        { type: 'curve', pts: [[22, 44], [16, 40], [12, 32]], color: '#10b981' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PG passes to PF. SF cuts baseline off C screen.' }]
+    },
+    // Frame 2: Pitch DHO
+    {
+      O: [[18, 25], [22, 6], [10, 32], [12, 10], [12, 40]],
+      D: [[20, 25], [22, 10], [12, 30], [14, 12], [14, 38]],
+      ball: [10, 32],
+      strokes: [
+        { type: 'dashed', pts: [[12, 10], [10, 32]], color: 'rgba(255, 255, 255, 0.45)' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PF pitches baseline pass to SF for layup drive!' }]
+    }
+  ],
+  'hornsflare': [
+    // Frame 0: Setup
+    {
+      O: [[18, 25], [22, 6], [22, 44], [12, 17], [12, 33]],
+      D: [[20, 25], [22, 10], [22, 40], [14, 18], [14, 32]],
+      labels: [{ xFt: 3, yFt: 3, text: 'Horns Flare: Double elbow screens' }]
+    },
+    // Frame 1: Pass & Flare
+    {
+      O: [[20, 35], [22, 6], [22, 44], [12, 17], [12, 33]],
+      D: [[20, 31], [22, 10], [22, 40], [14, 18], [14, 32]],
+      ball: [12, 17],
+      strokes: [
+        { type: 'screen', pts: [[12, 33], [20, 35]], color: '#ff6b00' },
+        { type: 'dashed', pts: [[18, 25], [12, 17]], color: 'rgba(255, 255, 255, 0.45)' },
+        { type: 'curve', pts: [[18, 25], [20, 35]], color: '#10b981' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PG passes to PF. C sets high backscreen. PG flares wing.' }]
+    },
+    // Frame 2: Skip Out
+    {
+      O: [[20, 35], [22, 6], [22, 44], [12, 17], [12, 33]],
+      D: [[21, 35], [22, 10], [22, 40], [14, 18], [14, 32]],
+      ball: [20, 35],
+      strokes: [
+        { type: 'dashed', pts: [[12, 17], [20, 35]], color: 'rgba(255, 255, 255, 0.45)' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PF skips ball back to flared PG for open three!' }]
+    }
+  ],
+  'hornsflex': [
+    // Frame 0: Setup
+    {
+      O: [[18, 25], [22, 6], [22, 44], [12, 17], [12, 33]],
+      D: [[20, 25], [22, 10], [22, 40], [14, 18], [14, 32]],
+      labels: [{ xFt: 3, yFt: 3, text: 'Horns Flex: Baseline cut action' }]
+    },
+    // Frame 1: Flex Screen
+    {
+      O: [[18, 25], [5, 30], [22, 44], [12, 17], [12, 33]],
+      D: [[20, 25], [7, 28], [22, 40], [8, 12], [14, 32]],
+      ball: [12, 33],
+      strokes: [
+        { type: 'screen', pts: [[12, 17], [8, 12]], color: '#ff6b00' },
+        { type: 'dashed', pts: [[18, 25], [12, 33]], color: 'rgba(255, 255, 255, 0.45)' },
+        { type: 'curve', pts: [[22, 6], [12, 6], [5, 30]], color: '#10b981' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PG passes C. PF baseline flex screens for SG cutting baseline.' }]
+    },
+    // Frame 2: Layup finish
+    {
+      O: [[18, 25], [5, 30], [22, 44], [12, 17], [12, 33]],
+      D: [[20, 25], [8, 30], [22, 40], [8, 12], [14, 32]],
+      ball: [5, 30],
+      strokes: [
+        { type: 'dashed', pts: [[12, 33], [5, 30]], color: 'rgba(255, 255, 255, 0.45)' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'C feeds SG baseline cutter for easy open layup!' }]
+    }
+  ],
+  'hornsrub': [
+    // Frame 0: Setup
+    {
+      O: [[18, 25], [22, 6], [22, 44], [12, 17], [12, 33]],
+      D: [[20, 25], [22, 10], [22, 40], [14, 18], [14, 32]],
+      labels: [{ xFt: 3, yFt: 3, text: 'Horns Rub: Screen the Screener' }]
+    },
+    // Frame 1: Roll Screen
+    {
+      O: [[12, 25], [22, 6], [22, 44], [12, 17], [12, 33]],
+      D: [[14, 25], [22, 10], [22, 40], [14, 18], [14, 32]],
+      ball: [12, 25],
+      strokes: [
+        { type: 'screen', pts: [[12, 17], [12, 33]], color: '#ff6b00' },
+        { type: 'screen', pts: [[12, 33], [12, 25]], color: '#ff6b00' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PF screens C. C rolls and screens PG defender. PG drives.' }]
+    },
+    // Frame 2: Roll Dunk
+    {
+      O: [[12, 25], [22, 6], [22, 44], [12, 17], [6, 25]],
+      D: [[14, 25], [22, 10], [22, 40], [14, 18], [8, 25]],
+      ball: [6, 25],
+      strokes: [
+        { type: 'dashed', pts: [[12, 25], [6, 25]], color: 'rgba(255, 255, 255, 0.45)' },
+        { type: 'curve', pts: [[12, 33], [9, 29], [6, 25]], color: '#10b981' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'C rolls rim. PG feeds C for strong rolling slam!' }]
+    }
+  ],
+  'princetonchin': [
+    // Frame 0: Setup
+    {
+      O: [[18, 25], [22, 6], [22, 44], [12, 10], [12, 40]],
+      D: [[20, 25], [22, 10], [22, 40], [14, 12], [14, 38]],
+      labels: [{ xFt: 3, yFt: 3, text: 'Princeton Chin: Elbow entry set' }]
+    },
+    // Frame 1: Backscreen
+    {
+      O: [[18, 25], [22, 6], [6, 25], [12, 10], [12, 40]],
+      D: [[20, 25], [22, 10], [8, 25], [14, 12], [14, 38]],
+      ball: [12, 10],
+      strokes: [
+        { type: 'dashed', pts: [[18, 25], [12, 10]], color: 'rgba(255, 255, 255, 0.45)' },
+        { type: 'screen', pts: [[12, 40], [6, 25]], color: '#ff6b00' },
+        { type: 'curve', pts: [[22, 44], [14, 35], [6, 25]], color: '#10b981' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PG passes PF. C sets backscreen. SF cuts backdoor.' }]
+    },
+    // Frame 2: Handoff
+    {
+      O: [[14, 18], [22, 6], [6, 25], [12, 10], [12, 40]],
+      D: [[15, 20], [22, 10], [8, 25], [14, 12], [14, 38]],
+      ball: [14, 18],
+      strokes: [
+        { type: 'dashed', pts: [[12, 10], [14, 18]], color: 'rgba(255, 255, 255, 0.45)' },
+        { type: 'curve', pts: [[18, 25], [14, 18]], color: '#10b981' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PF hands off to PG. PG attacks paint.' }]
+    }
+  ],
+  'princetonpoint': [
+    // Frame 0: Setup
+    {
+      O: [[18, 25], [22, 6], [22, 44], [12, 17], [12, 33]],
+      D: [[20, 25], [22, 10], [22, 40], [14, 18], [14, 32]],
+      labels: [{ xFt: 3, yFt: 3, text: 'Princeton Point: Elbow split cuts' }]
+    },
+    // Frame 1: Split Cuts
+    {
+      O: [[14, 25], [22, 6], [22, 44], [12, 17], [8, 28]],
+      D: [[15, 28], [22, 10], [22, 40], [14, 18], [9, 30]],
+      ball: [12, 17],
+      strokes: [
+        { type: 'dashed', pts: [[18, 25], [12, 17]], color: 'rgba(255, 255, 255, 0.45)' },
+        { type: 'curve', pts: [[18, 25], [14, 25]], color: '#10b981' },
+        { type: 'curve', pts: [[12, 33], [8, 28]], color: '#10b981' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PG passes PF. C and PG run intersecting split cuts.' }]
+    },
+    // Frame 2: Score
+    {
+      O: [[14, 25], [22, 6], [22, 44], [12, 17], [6, 25]],
+      D: [[15, 28], [22, 10], [22, 40], [14, 18], [8, 25]],
+      ball: [6, 25],
+      strokes: [
+        { type: 'dashed', pts: [[12, 17], [6, 25]], color: 'rgba(255, 255, 255, 0.45)' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PF feeds C rolling off split cut for easy dunk!' }]
+    }
+  ],
+  'trianglepost': [
+    // Frame 0: Setup
+    {
+      O: [[18, 25], [22, 6], [22, 44], [12, 15], [7, 44]],
+      D: [[20, 25], [22, 10], [22, 40], [14, 18], [8, 42]],
+      ball: [22, 44],
+      labels: [{ xFt: 3, yFt: 3, text: 'Triangle Post Entry: Low Post focus' }]
+    },
+    // Frame 1: Entry & Cut
+    {
+      O: [[14, 30], [22, 6], [10, 40], [12, 15], [7, 44]],
+      D: [[16, 32], [22, 10], [11, 41], [14, 18], [8, 42]],
+      ball: [7, 44],
+      strokes: [
+        { type: 'dashed', pts: [[22, 44], [7, 44]], color: 'rgba(255, 255, 255, 0.45)' },
+        { type: 'curve', pts: [[22, 44], [10, 40]], color: '#10b981' },
+        { type: 'curve', pts: [[18, 25], [14, 30]], color: '#10b981' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'SF enters to low post C. PG and SF split cut basket.' }]
+    },
+    // Frame 2: Feed baseline
+    {
+      O: [[14, 30], [22, 6], [5, 36], [12, 15], [7, 44]],
+      D: [[16, 32], [22, 10], [8, 38], [14, 18], [8, 42]],
+      ball: [5, 36],
+      strokes: [
+        { type: 'dashed', pts: [[7, 44], [5, 36]], color: 'rgba(255, 255, 255, 0.45)' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'C passes baseline to cutting SF for open layup!' }]
+    }
+  ],
+  'trianglepinch': [
+    // Frame 0: Setup
+    {
+      O: [[18, 25], [22, 6], [22, 44], [12, 25], [7, 44]],
+      D: [[20, 25], [22, 10], [22, 40], [14, 25], [8, 42]],
+      labels: [{ xFt: 3, yFt: 3, text: 'Triangle Pinch Post Setup' }]
+    },
+    // Frame 1: Entry & Rub
+    {
+      O: [[13, 23], [22, 6], [22, 44], [12, 25], [7, 44]],
+      D: [[14, 24], [22, 10], [22, 40], [14, 25], [8, 42]],
+      ball: [12, 25],
+      strokes: [
+        { type: 'dashed', pts: [[18, 25], [12, 25]], color: 'rgba(255, 255, 255, 0.45)' },
+        { type: 'curve', pts: [[18, 25], [13, 23]], color: '#10b981' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PG passes pinch post PF and runs rub handoff cut.' }]
+    },
+    // Frame 2: Layup
+    {
+      O: [[10, 22], [22, 6], [22, 44], [12, 25], [7, 44]],
+      D: [[12, 22], [22, 10], [22, 40], [14, 25], [8, 42]],
+      ball: [10, 22],
+      strokes: [
+        { type: 'dashed', pts: [[12, 25], [10, 22]], color: 'rgba(255, 255, 255, 0.45)' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PF hands off ball to PG driving left paint for layup!' }]
+    }
+  ],
+  'trianglepig': [
+    // Frame 0: Setup
+    {
+      O: [[18, 25], [22, 6], [22, 44], [12, 25], [7, 44]],
+      D: [[20, 25], [22, 10], [22, 40], [14, 25], [8, 42]],
+      labels: [{ xFt: 3, yFt: 3, text: 'Blind Pig backdoor play' }]
+    },
+    // Frame 1: Backdoor Cut
+    {
+      O: [[18, 25], [22, 6], [6, 42], [12, 25], [7, 44]],
+      D: [[20, 25], [22, 10], [8, 42], [14, 25], [8, 42]],
+      ball: [12, 25],
+      strokes: [
+        { type: 'dashed', pts: [[18, 25], [12, 25]], color: 'rgba(255, 255, 255, 0.45)' },
+        { type: 'curve', pts: [[22, 44], [14, 43], [6, 42]], color: '#10b981' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PG passes PF. SF backdoor cuts baseline as defender overplays.' }]
+    },
+    // Frame 2: Layup
+    {
+      O: [[18, 25], [22, 6], [6, 42], [12, 25], [7, 44]],
+      D: [[20, 25], [22, 10], [8, 40], [14, 25], [8, 42]],
+      ball: [6, 42],
+      strokes: [
+        { type: 'dashed', pts: [[12, 25], [6, 42]], color: 'rgba(255, 255, 255, 0.45)' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PF bounce feeds SF baseline backdoor cutter!' }]
+    }
+  ],
+  'blobbox': [
+    // Frame 0: Setup
+    {
+      O: [[2, 12], [6, 15], [10, 35], [6, 35], [10, 15]],
+      D: [[3, 12], [6, 18], [10, 38], [6, 38], [10, 18]],
+      labels: [{ xFt: 3, yFt: 3, text: 'BLOB Box Set: Cross screens' }]
+    },
+    // Frame 1: Cross Screens
+    {
+      O: [[2, 12], [6, 15], [10, 8], [6, 35], [10, 42]],
+      D: [[3, 12], [6, 18], [10, 12], [6, 38], [10, 38]],
+      strokes: [
+        { type: 'screen', pts: [[6, 35], [10, 35]], color: '#ff6b00' },
+        { type: 'screen', pts: [[6, 15], [10, 15]], color: '#ff6b00' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'Bigs screen high guards. SG/SF flare corners.' }]
+    },
+    // Frame 2: Inbound Pass
+    {
+      O: [[2, 12], [6, 15], [10, 8], [6, 35], [10, 42]],
+      D: [[3, 12], [6, 18], [10, 10], [6, 38], [10, 38]],
+      ball: [10, 8],
+      strokes: [
+        { type: 'dashed', pts: [[2, 12], [10, 8]], color: 'rgba(255, 255, 255, 0.45)' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PG passes to SG in corner for open three!' }]
+    }
+  ],
+  'blobline': [
+    // Frame 0: Setup
+    {
+      O: [[2, 12], [6, 18], [6, 23], [6, 28], [6, 33]],
+      D: [[3, 12], [6, 20], [6, 25], [6, 30], [6, 35]],
+      labels: [{ xFt: 3, yFt: 3, text: 'BLOB Line Stack' }]
+    },
+    // Frame 1: Peel Cuts
+    {
+      O: [[2, 12], [8, 8], [18, 25], [8, 42], [6, 33]],
+      D: [[3, 12], [9, 10], [17, 25], [9, 40], [6, 35]],
+      strokes: [
+        { type: 'curve', pts: [[6, 18], [7, 12], [8, 8]], color: '#10b981' },
+        { type: 'curve', pts: [[6, 23], [12, 24], [18, 25]], color: '#10b981' },
+        { type: 'curve', pts: [[6, 28], [7, 36], [8, 42]], color: '#10b981' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'Line splits. SG, SF, PF peel out wide.' }]
+    },
+    // Frame 2: Layup
+    {
+      O: [[2, 12], [8, 8], [18, 25], [8, 42], [5, 25]],
+      D: [[3, 12], [9, 10], [17, 25], [9, 40], [6, 26]],
+      ball: [5, 25],
+      strokes: [
+        { type: 'dashed', pts: [[2, 12], [5, 25]], color: 'rgba(255, 255, 255, 0.45)' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'C curls paint last. PG feeds C for layup.' }]
+    }
+  ],
+  'slobdiamond': [
+    // Frame 0: Setup
+    {
+      O: [[24, 1], [32, 12], [24, 25], [16, 12], [24, 8]],
+      D: [[24, 3], [32, 14], [24, 27], [16, 14], [24, 10]],
+      labels: [{ xFt: 3, yFt: 3, text: 'SLOB Diamond Entry' }]
+    },
+    // Frame 1: Break & Screen
+    {
+      O: [[24, 1], [30, 22], [24, 25], [16, 12], [24, 8]],
+      D: [[24, 3], [30, 24], [24, 27], [16, 14], [24, 10]],
+      strokes: [
+        { type: 'screen', pts: [[24, 8], [30, 22]], color: '#ff6b00' },
+        { type: 'curve', pts: [[32, 12], [30, 22]], color: '#10b981' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'C screens PG defender, PG cuts to wing.' }]
+    },
+    // Frame 2: Entry
+    {
+      O: [[24, 1], [30, 22], [24, 25], [16, 12], [24, 8]],
+      D: [[24, 3], [30, 23], [24, 27], [16, 14], [24, 10]],
+      ball: [30, 22],
+      strokes: [
+        { type: 'dashed', pts: [[24, 1], [30, 22]], color: 'rgba(255, 255, 255, 0.45)' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'SF enters ball to PG on wing. Offense resets.' }]
+    }
+  ],
+  'slobelevator': [
+    // Frame 0: Setup
+    {
+      O: [[24, 1], [18, 25], [26, 25], [20, 20], [20, 30]],
+      D: [[24, 3], [19, 25], [26, 27], [20, 18], [20, 32]],
+      labels: [{ xFt: 3, yFt: 3, text: 'SLOB Elevator Gate screen' }]
+    },
+    // Frame 1: Elevator Cut
+    {
+      O: [[24, 1], [18, 25], [26, 25], [20, 24], [20, 26]],
+      D: [[24, 3], [21, 25], [26, 27], [20, 21], [20, 29]],
+      strokes: [
+        { type: 'curve', pts: [[26, 25], [22, 25], [18, 25]], color: '#10b981' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'SG cuts hard between PF and C. D2 follows.' }]
+    },
+    // Frame 2: Close Gate
+    {
+      O: [[24, 1], [18, 25], [26, 25], [20, 25], [20, 25]],
+      D: [[24, 3], [21, 25], [26, 27], [20, 24], [20, 26]],
+      ball: [26, 25],
+      strokes: [
+        { type: 'dashed', pts: [[24, 1], [26, 25]], color: 'rgba(255, 255, 255, 0.45)' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PF & C close elevator gate! SG shoots open 3!' }]
+    }
+  ],
+  'zone32': [
+    // Frame 0: Setup (3-2 Zone setup)
+    {
+      O: [[20, 25], [22, 6], [22, 44], [6, 4], [6, 46]],
+      D: [[17, 15], [17, 35], [18, 25], [10, 8], [10, 42]],
+      labels: [{ xFt: 3, yFt: 3, text: '3-2 Zone Defense: High Wing Pressure' }]
+    },
+    // Frame 1: Wing Shift
+    {
+      O: [[20, 25], [22, 6], [22, 44], [6, 4], [6, 46]],
+      D: [[17, 15], [18, 38], [18, 25], [10, 8], [8, 43]],
+      ball: [22, 44],
+      strokes: [
+        { type: 'dashed', pts: [[20, 25], [22, 44]], color: 'rgba(255, 255, 255, 0.45)' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'Ball passed wing SF. D2 shifts wing, D5 slides corner.' }]
+    },
+    // Frame 2: Wing trap
+    {
+      O: [[20, 25], [22, 6], [22, 44], [6, 4], [6, 46]],
+      D: [[17, 15], [20, 43], [18, 25], [10, 8], [21, 44]],
+      ball: [22, 44],
+      strokes: [
+        { type: 'curve', pts: [[18, 38], [20, 43]], color: '#ef4444' },
+        { type: 'curve', pts: [[8, 43], [21, 44]], color: '#ef4444' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'D2 and D5 lock wing SF in tight sideline trap!' }]
+    }
+  ],
+  'boxone': [
+    // Frame 0: Setup
+    {
+      O: [[18, 25], [22, 6], [22, 44], [6, 4], [6, 46]],
+      D: [[16, 25], [12, 12], [12, 38], [9, 12], [9, 38]],
+      labels: [{ xFt: 3, yFt: 3, text: 'Box-and-One: D1 shadows star PG O1' }]
+    },
+    // Frame 1: Drive shadow
+    {
+      O: [[12, 28], [22, 6], [22, 44], [6, 4], [6, 46]],
+      D: [[13, 27], [12, 12], [12, 38], [9, 12], [9, 38]],
+      ball: [12, 28],
+      strokes: [
+        { type: 'curve', pts: [[18, 25], [12, 28]], color: '#10b981' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PG O1 drives. D1 tracks lockstep. Box stays compact.' }]
+    },
+    // Frame 2: Recover Kickout
+    {
+      O: [[12, 28], [22, 6], [22, 44], [6, 4], [6, 46]],
+      D: [[13, 27], [12, 12], [15, 41], [9, 12], [9, 38]],
+      ball: [22, 44],
+      strokes: [
+        { type: 'dashed', pts: [[12, 28], [22, 44]], color: 'rgba(255, 255, 255, 0.45)' },
+        { type: 'curve', pts: [[12, 38], [15, 41]], color: '#ef4444' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PG kicks out to wing SF. D3 scrambles box to wing.' }]
+    }
+  ],
+  'triangle2': [
+    // Frame 0: Setup
+    {
+      O: [[18, 25], [22, 6], [22, 44], [6, 4], [6, 46]],
+      D: [[16, 23], [20, 6], [12, 25], [9, 15], [9, 35]],
+      labels: [{ xFt: 3, yFt: 3, text: 'Triangle-and-Two: Shadowing O1 & O2' }]
+    },
+    // Frame 1: Shadow curl
+    {
+      O: [[18, 25], [10, 8], [22, 44], [6, 4], [6, 46]],
+      D: [[16, 23], [12, 8], [12, 25], [9, 15], [9, 35]],
+      strokes: [
+        { type: 'curve', pts: [[22, 6], [10, 8]], color: '#10b981' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'SG O2 curls corner, shadow defender D2 follows.' }]
+    },
+    // Frame 2: Deny
+    {
+      O: [[18, 25], [10, 8], [22, 44], [6, 4], [6, 46]],
+      D: [[16, 23], [9, 8], [12, 25], [9, 15], [9, 35]],
+      ball: [9, 8],
+      strokes: [
+        { type: 'dashed', pts: [[18, 25], [10, 8]], color: 'rgba(255, 255, 255, 0.45)' }
+      ],
+      labels: [{ xFt: 3, yFt: 3, text: 'PG passes corner. D2 steps in front to intercept pass!' }]
+    }
+  ],
+  'press221': [
+    // Frame 0: Setup
+    {
+      O: [[1, 25], [6, 15], [6, 35], [25, 10], [32, 40]],
+      D: [[8, 15], [8, 35], [24, 15], [24, 35], [75, 25]],
+      labels: [{ xFt: 20, yFt: 3, text: '2-2-1 Full Court Press Setup: D5 Deep Safety' }]
+    },
+    // Frame 1: Sideline Drive
+    {
+      O: [[12, 10], [6, 15], [6, 35], [25, 10], [32, 40]],
+      D: [[11, 12], [8, 35], [24, 15], [24, 35], [75, 25]],
+      ball: [12, 10],
+      strokes: [
+        { type: 'dashed', pts: [[1, 25], [12, 10]], color: 'rgba(255, 255, 255, 0.45)' }
+      ],
+      labels: [{ xFt: 20, yFt: 3, text: 'Inbound to PG sideline, D1 steps to steer.' }]
+    },
+    // Frame 2: Mid-Court trap
+    {
+      O: [[24, 10], [6, 15], [6, 35], [25, 10], [32, 40]],
+      D: [[23, 8], [8, 35], [25, 12], [24, 35], [75, 25]],
+      ball: [24, 10],
+      strokes: [
+        { type: 'curve', pts: [[11, 12], [23, 8]], color: '#ef4444' },
+        { type: 'curve', pts: [[24, 15], [25, 12]], color: '#ef4444' }
+      ],
+      labels: [{ xFt: 20, yFt: 3, text: 'PG drives midcourt. D1 and D3 lock tight sideline trap!' }]
+    }
+  ],
+  'pressdouble': [
+    // Frame 0: Setup
+    {
+      O: [[1, 25], [6, 15], [6, 35], [25, 10], [32, 40]],
+      D: [[8, 15], [8, 35], [24, 15], [24, 35], [75, 25]],
+      labels: [{ xFt: 20, yFt: 3, text: 'Run & Double: Inbound Trap Setup' }]
+    },
+    // Frame 1: Lock Inbound
+    {
+      O: [[6, 15], [6, 15], [6, 35], [25, 10], [32, 40]],
+      D: [[6, 13], [6, 17], [24, 15], [24, 35], [75, 25]],
+      ball: [6, 15],
+      strokes: [
+        { type: 'dashed', pts: [[1, 25], [6, 15]], color: 'rgba(255, 255, 255, 0.45)' },
+        { type: 'curve', pts: [[8, 15], [6, 13]], color: '#ef4444' },
+        { type: 'curve', pts: [[8, 35], [6, 17]], color: '#ef4444' }
+      ],
+      labels: [{ xFt: 20, yFt: 3, text: 'Pass received. D1 and D2 sprint immediately to double team!' }]
+    },
+    // Frame 2: Turnover Steal
+    {
+      O: [[6, 15], [6, 15], [6, 35], [25, 10], [32, 40]],
+      D: [[5, 15], [7, 15], [24, 15], [24, 35], [75, 25]],
+      ball: [5, 15],
+      strokes: [
+        { type: 'curve', pts: [[6, 13], [5, 15]], color: '#ef4444' }
+      ],
+      labels: [{ xFt: 20, yFt: 3, text: 'Trap lock! D1 knocks ball loose and recovers for steal!' }]
+    }
   ]
 };
 
@@ -2871,8 +3708,8 @@ function applyFormation(name) {
 
   saveState();
   
-  // Set appropriate court mode first
-  setCourt(name === 'press131' ? 'full' : 'half');
+  // Set appropriate court mode first: All plays containing 'press' switch to full court, others half court
+  setCourt(name.toLowerCase().includes('press') ? 'full' : 'half');
 
   S.keyframes = [];
   
