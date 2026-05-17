@@ -1,6 +1,6 @@
-# 🏀 Hoop Tactical Pro (v2026.1)
+# 🏀 Hoop Tactical Pro (v2026.2)
 
-An ultra-premium, glassmorphic basketball coaching playbook and tactical board built for modern **NBA & NCAA** coaching setups. Features real-time spacing heatmaps, synthesized coaching whistles, high-fidelity timeline keyframe animations, and professional court themes (including the NBA Cup Vegas theme!).
+An ultra-premium, glassmorphic basketball coaching playbook and tactical board built for modern **NBA & NCAA** coaching setups. Features real-time spacing heatmaps, synthesized coaching whistles, high-fidelity timeline keyframe animations, professional court themes (including the NBA Cup Vegas theme!), an interactive **Coaching Guide HUD**, and a high-precision **Non-Linear Spacing Engine**.
 
 ---
 
@@ -15,10 +15,21 @@ An ultra-premium, glassmorphic basketball coaching playbook and tactical board b
   * **NCAA Final Four**: Oak planks with classic royal blue collegiate borders.
 * **Modern Regulation Markings**: Regulation college/pro lines, wider **NCAA Arc widths**, deep **4-Point lines**, and defensive **Spacing Hashmarks**.
 
-### 📊 Real-Time Spacing & Threat Analytics
+### 📈 High-Precision Spacing Engine (v2026.2)
+* **Non-Linear Court Remapping**: Dynamic coordinate transformation that gracefully projects half-court plays into real-world proportions:
+  * **Paint and Post Areas** (`x <= 12`) are preserved with **100% precision** to maintain realistic screen, cut, and post-up locations.
+  * **Perimeter Spacing** (`x > 12`) is non-linearly stretched to align players exactly outside the 23.75-foot NBA/NCAA three-point arc.
+  * **Sideline Corners** are expanded wider (`y = 1.8` and `y = 48.2`) to position shooters perfectly in the deep corner baseline pockets.
+* **Man-to-Man Defender Basket Alignment**: Automatically forces defenders to stand on the **correct basket-side** of their matchup (exactly between the offense and the left hoop) instead of trailing behind.
+* **Selective Zone & Inbound Space Protection**: Detects zone defenses (2-3 Zone, 3-2 Zone, Pack-Line) and inbound plays (BLOB/SLOB) to lock defenders in their designed strategic zone spaces, preventing defensive alignment breakdown.
 * **Translucent Reach Bubbles**: Projects defensive threat zones (`radius * 3.5`) beneath defenders in real-time.
 * **Neon Spacing Aura**: Offensive players glow **neon green** when wide-open, and contour in **neon red** when contested within a defender's reach bubble.
 * **Floating Spacing HUD**: Monitors spacing distance offsets between active offensive players to output an instant **Spacing Score** (e.g. *Pristine*, *Decent*, or *Congested*).
+
+### 📖 Interactive Coaching Guide HUD
+* **Tactical Concepts**: Instantly displays the coaching philosophy, tactical theory, and standard applications for every playbook.
+* **Coaching Instructions**: Outputs step-by-step frame instructions in the side control panel, synchronizing with active timeline animations.
+* **Full-Court Press Auto-Switching**: Automatically toggles the board between half-court and full-court rendering depending on the play's tactical scale.
 
 ### 🎬 Keyframe Timeline Animation Ticker
 * **Multi-Frame Sequencing**: Set up player and ball positions, click `+ Add Keyframe`, adjust positions, and hit playback.
@@ -34,27 +45,50 @@ An ultra-premium, glassmorphic basketball coaching playbook and tactical board b
 
 ---
 
-## 🏀 Preloaded 2026 Playbook Animations
+## 🏀 Expanded Catalog: 33 Premium Playbooks
 
-### 1. 1-3-1 Press Trap (Defensive Press)
-* **Frame 1 (Setup)**: Deploys defenders in a 1-3-1 full-court trap zone. The app **automatically switches to Full Court mode** instantly. `D5` stands deep as safety near the opposite baseline, and `D3` stands in the middle of the court.
-* **Frame 2 (Trap steering)**: The offense PG passes to the right sideline wing SF. Defender `D1` and `D4` sprint in tandem to box SF in a tight V-shaped trap, while `D3` rotates to deny the easy middle release. `D5` guards the long deep pass.
-* **Frame 3 (Interception)**: SF tries to make a desperate cross-court pass back to PG, but middle safety `D3` leaps in front to intercept the pass and score!
+The catalog has been expanded to **33 elite NBA and NCAA playbook sets**, divided into four specialized tactical categories:
 
-### 2. 2-3 Zone Buster (Offense vs 2-3 Zone)
-* **Frame 1 (Setup)**: Deploys defenders in a strict **2-3 Zone** (two guards high, three forwards low) inside half-court. Offense aligns in a zone-busting overload with Center `C` at the high post elbow.
-* **Frame 2 (High Post Entry)**: `PG` enters the ball to `C` at the high post, causing all five zone defenders to collapse inward to protect the paint. Concurrently, `SF` cuts baseline towards the right corner.
-* **Frame 3 (Corner Kickout)**: `C` quickly kicks a dashed pass to `SF` in the deep corner. Bottom-right defender `D5` attempts a desperate scramble close-out, but `SF` is wide-open for a clean corner 3!
+### 🔥 Modern Offense Series
+1. **Delay 5-Out Offense**: Modern spacing set designed to clear the paint for direct backdoor cuts.
+2. **Spain Pick & Roll**: Relentless central pick-and-roll with a back-screen on the roll defender.
+3. **Pistol (21) Action**: Early transition attack using handoffs and quick downhill wing drives.
+4. **Zoom Set Action**: Pin-down screen into a handoff for dynamic rim pressure.
+5. **Flow Motion**: Continuous passing and cutting designed to break standard man-to-man alignments.
+6. **Chicago Action**: Pin-down screen directly into a handoff for immediate three-point shooters.
+7. **Delay Flare Screen**: Secondary break action setting a flare screen for the inbounder.
+8. **Delay Keep Action**: Handoff fake resulting in a direct quarterback keeper drive.
+9. **Spain P&R Leak**: Spain pick-and-roll variation leaking the back-screener to the opposite wing.
+10. **Spain P&R Hammer**: Roll action triggering a weakside hammer screen for a corner shooter.
+11. **Zoom Double Action**: Double handoff sequence to overload the top-of-key.
+12. **Zoom Pitch Action**: Drag screen followed by an immediate pitch-back release.
 
-### 3. Pass & Cut Motion (Simple Motion Play)
-* **Frame 1 (Setup)**: Deploys in standard Delay 5-Out spacing at half-court.
-* **Frame 2 (Pass & Cut)**: PG passes to SF on the wing, and immediately cuts hard down the center of the key.
-* **Frame 3 (Layup finish)**: SF delivers a crisp bounce-pass to PG under the rim for an open layup.
+### 🎯 Classic & Tactical Series
+13. **Horns Flare Set**: Elbow spacing with dual screens and a high shooter flare release.
+14. **Horns Flex Action**: Flex screen from high elbow opening a cutter underneath the basket.
+15. **Horns Rub Handoff**: Handoff fake to clear a shooter along the key lane.
+16. **Princeton Chin Offense**: Backdoor-focused NCAA spacing with high post elbows and backdoor cuts.
+17. **Princeton Point Series**: Guard-to-guard entry triggering an elbow split cut sequence.
+18. **Triangle Post Entry**: Phil Jackson-style triple post spacing focused on low post mismatch entry.
+19. **Triangle Pinch Post**: Handoff off the high elbow to clear baseline drives.
+20. **Triangle Blind Pig**: Inside backdoor cutter play utilizing quick elbow handoffs.
 
-### 4. BLOB Stack Inbound (Inbound Play)
-* **Frame 1 (Setup)**: Deploys an out-of-bounds inbounder (PG) along the baseline with a tight vertical elbow stack.
-* **Frame 2 (Break Stack)**: Wing shooters split wide to corners, while the PF screens down on the center's defender, freeing the C to curl along the baseline.
-* **Frame 3 (Score)**: PG delivers a perfect inbound pass to C under the rim for an easy baseline layup.
+### 📥 Special Inbound Sets (BLOB & SLOB)
+21. **BLOB Stack Inbound**: Baseline out-of-bounds stack set utilizing cross screens to open a layup.
+22. **BLOB Box Screen Set**: Traditional box-set screen alignment creating corner and post options.
+23. **BLOB Line Inbound**: Linear baseline stack forcing split directions.
+24. **SLOB Diamond Action**: Sideline out-of-bounds diamond formation using a curl screen for shooters.
+25. **SLOB Elevator Play**: Double screen closing shut behind the shooter at the top of the key.
+
+### 🛡️ Defensive Systems
+26. **Pack-Line Defense**: Packed interior paint defense forcing deep contested shots.
+27. **1-3-1 Press Trap**: Multi-frame trapping full-court press (with `D5` deep safety and `D3` middle).
+28. **2-3 Zone Motion**: Classic 2-3 Zone defense structure defending high-post overload motion.
+29. **3-2 Zone Defense**: Perimeter-denial zone designed to lock down hot three-point shooting teams.
+30. **Box-and-One Defense**: Shadow defense locking one star player while the other four defend in a zone box.
+31. **Triangle-and-Two**: Extreme shadow defense locking two star shooters while the other three defend in a low triangle.
+32. **2-2-1 Press Trap**: Three-quarter court press designed to trap the ball handler at the sidelines.
+33. **Run-and-Double Defense**: Relentless full-court trapping defense forcing immediate turnovers.
 
 ---
 
@@ -84,26 +118,7 @@ An ultra-premium, glassmorphic basketball coaching playbook and tactical board b
 2. **Start the Dev Server**:
    ```bash
    npm start
-   # Operates on http://localhost:4000 (Port 3000 alternate)
    ```
-
-### Push to GitHub
-
-```bash
-# Add all modernized assets and logic
-git add .
-git commit -m "Upgrade to Hoop Tactical Pro v2026.1: Glassmorphism, synthesized whistle, keyframe timeline, and corrected 1-3-1 & 2-3 Zone plays"
-
-# Push to your repository
-git push origin main
-```
-
-### Deploy to Render
-
-The workspace contains a `render.yaml` configuration out-of-the-box.
-1. Connect your repository on [Render.com](https://render.com).
-2. Create a new **Web Service**.
-3. Deploy! Render will auto-detect the Express node server configuration.
 
 ---
 
@@ -115,5 +130,11 @@ The workspace contains a `render.yaml` configuration out-of-the-box.
 * **`render.yaml`** — Render PaaS automatic host setup.
 
 ---
+
+## 📝 Release Notes (v2026.2)
+* **Fixed coordinate drift:** Corrected baseline corner and wing player coordinates on half-court, aligning them elegantly outside the 3-point arc.
+* **Fixed defender trailing:** Implemented dynamic defender alignment to keep defenders on the hoop-side of the ball.
+* **Zone defense isolation:** Protected zone defenses (like 2-3 Zone) and inbounds (BLOB/SLOB) from scaling to maintain paint coverage.
+* **Added 33 playbooks:** Fully detailed coaching instructions for all premium sets.
 
 Built with ❤️ for the Hoop Culture Network · Modern basketball playmaking.
