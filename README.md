@@ -1,4 +1,4 @@
-# 🏀 Hoop Tactical Pro (v2026.2)
+# 🏀 Hoop Tactical Pro (v2026.3)
 
 An ultra-premium, glassmorphic basketball coaching playbook and tactical board built for modern **NBA & NCAA** coaching setups. Features real-time spacing heatmaps, synthesized coaching whistles, high-fidelity timeline keyframe animations, professional court themes (including the NBA Cup Vegas theme!), an interactive **Coaching Guide HUD**, and a high-precision **Non-Linear Spacing Engine**.
 
@@ -15,7 +15,7 @@ An ultra-premium, glassmorphic basketball coaching playbook and tactical board b
   * **NCAA Final Four**: Oak planks with classic royal blue collegiate borders.
 * **Modern Regulation Markings**: Regulation college/pro lines, wider **NCAA Arc widths**, deep **4-Point lines**, and defensive **Spacing Hashmarks**.
 
-### 📈 High-Precision Spacing Engine (v2026.2)
+### 📈 High-Precision Spacing Engine (v2026.3)
 * **Non-Linear Court Remapping**: Dynamic coordinate transformation that gracefully projects half-court plays into real-world proportions:
   * **Paint and Post Areas** (`x <= 12`) are preserved with **100% precision** to maintain realistic screen, cut, and post-up locations.
   * **Perimeter Spacing** (`x > 12`) is non-linearly stretched to align players exactly outside the 23.75-foot NBA/NCAA three-point arc.
@@ -131,10 +131,10 @@ The catalog has been expanded to **33 elite NBA and NCAA playbook sets**, divide
 
 ---
 
-## 📝 Release Notes (v2026.2)
-* **Fixed coordinate drift:** Corrected baseline corner and wing player coordinates on half-court, aligning them elegantly outside the 3-point arc.
-* **Fixed defender trailing:** Implemented dynamic defender alignment to keep defenders on the hoop-side of the ball.
-* **Zone defense isolation:** Protected zone defenses (like 2-3 Zone) and inbounds (BLOB/SLOB) from scaling to maintain paint coverage.
-* **Added 33 playbooks:** Fully detailed coaching instructions for all premium sets.
+## 📝 Release Notes (v2026.3)
+* **FastBuild Engine**: Teleport players to the end of action lines instantly when building playbook frames.
+* **Premium Legibility**: Upgraded court annotations and text labels to stark white text over a dark translucent slate pill.
+* **In-App Quick Guide**: Embedded a comprehensive, easily-accessible onboarding User Guide directly into the board.
+* **Playbook Scalability**: Expanded playbook sets with deeper 'What-If' scenarios and fixed off-court bounds logic for SLOB/BLOB inbounds and Full-Court press alignments.
 
 Built with ❤️ for the Hoop Culture Network · Modern basketball playmaking.
