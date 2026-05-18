@@ -1321,7 +1321,8 @@ input[type=range].modern-slider::-webkit-slider-thumb:hover {
   </div>
 
   <div class="header-actions">
-    <button class="btn btn-accent" id="install-btn" style="display: none; box-shadow: 0 0 12px rgba(255,107,0,0.6);" onclick="triggerInstall()">📱 Install App</button>
+    <button class="btn" onclick="toggleFullScreen()" title="Toggle Full Screen" style="color: #60a5fa; border-color: rgba(96,165,250,0.3); background: rgba(96,165,250,0.05);">⛶ Full Screen</button>
+    <button class="btn btn-accent" id="install-btn" style="box-shadow: 0 0 12px rgba(255,107,0,0.6);" onclick="triggerInstall()">📱 Install App</button>
     <button class="btn" onclick="openUserGuide()" title="User Guide" style="color: #10b981; border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.05);">📖 Guide</button>
     <button class="btn" onclick="undo()" title="Undo Action">↩ Undo</button>
     <button class="btn" onclick="redo()" title="Redo Action">↪ Redo</button>
@@ -2353,19 +2354,13 @@ const isIos = () => {
 };
 const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
 
-if (isIos() && !isInStandaloneMode()) {
-  installBtn.style.display = 'flex';
-  installBtn.onclick = () => {
-    alert("To install Hoop Tactical Pro on your iPad or iPhone:\n\n1. Tap the 'Share' icon (square with an up arrow) in the Safari menu.\n2. Scroll down and tap 'Add to Home Screen'.\n\nThe app will now run in full-screen mode like a native app!");
-  };
+if (isInStandaloneMode() || window.matchMedia('(display-mode: standalone)').matches) {
+  if (installBtn) installBtn.style.display = 'none';
 }
 
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  if (installBtn) {
-    installBtn.style.display = 'flex';
-  }
 });
 
 function triggerInstall() {
@@ -2373,10 +2368,26 @@ function triggerInstall() {
     deferredPrompt.prompt();
     deferredPrompt.userChoice.then((choiceResult) => {
       if (choiceResult.outcome === 'accepted') {
-        installBtn.style.display = 'none';
+        if (installBtn) installBtn.style.display = 'none';
       }
       deferredPrompt = null;
     });
+  } else {
+    if (isIos()) {
+      alert("To install Hoop Tactical Pro on your iPad or iPhone:\n\n1. Tap the 'Share' icon (square with an up arrow) in the Safari menu.\n2. Scroll down and tap 'Add to Home Screen'.\n\nThe app will now run in full-screen mode like a native app!");
+    } else {
+      alert("To install Hoop Tactical Pro on this device:\n\nLook for the 'Install App' icon in your browser's address bar (often on the right side) or select 'Add to Home Screen' from your browser menu.");
+    }
+  }
+}
+
+function toggleFullScreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(err => {
+      console.log(`Error attempting to enable fullscreen: ${err.message}`);
+    });
+  } else {
+    document.exitFullscreen();
   }
 }
 
