@@ -1317,7 +1317,7 @@ body.game-time .main {
   height: calc(100vh - 60px);
 }
 
-body.game-time .canvas-wrapper {
+body.game-time .canvas-wrap {
   margin: 10px;
 }
 
@@ -1328,6 +1328,236 @@ body.game-time .canvas-wrapper {
 body.game-time #panel-toggle-btn {
   display: flex !important;
 }
+
+/* ============================================================
+   RESPONSIVENESS & TOUCH OPTIMIZATION (v2026.4)
+   ============================================================ */
+
+/* ACTIONS DROPDOWN */
+.actions-dropdown {
+  position: relative;
+  display: none;
+}
+
+.actions-dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  min-width: 195px;
+  background: var(--panel-solid);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  z-index: 300;
+  overflow: hidden;
+  padding: 6px;
+  flex-direction: column;
+  gap: 4px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.actions-dropdown-content.show {
+  display: flex;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 14px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: var(--text2);
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s;
+  min-height: 38px;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+
+.dropdown-item .item-icon {
+  width: 18px;
+  font-size: 14px;
+}
+
+/* RESPONSIVE LAYOUT OVERLAYS */
+@media (max-width: 1023px) {
+  /* Actions Dropdown visibility */
+  .actions-dropdown {
+    display: inline-block;
+  }
+  
+  .secondary-action {
+    display: none !important;
+  }
+  
+  /* Roster sidebar as floating slide-out panel */
+  .right-sidebar {
+    position: absolute;
+    right: -260px;
+    top: 0;
+    bottom: 0;
+    width: 240px;
+    background: rgba(11, 15, 30, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-left: 1px solid var(--border);
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 250;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+  }
+  
+  body.panel-open .right-sidebar {
+    right: 0 !important;
+  }
+  
+  #panel-toggle-btn {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Header styling on phones */
+  .header {
+    height: 58px;
+    padding: 0 8px;
+    gap: 8px;
+  }
+  
+  .logo-text {
+    font-size: 13px;
+    letter-spacing: 0.4px;
+  }
+  
+  .logo-image {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+  }
+  
+  .header-center {
+    gap: 6px;
+  }
+  
+  .court-toggle button {
+    padding: 4px 8px;
+    font-size: 10px;
+    min-height: 28px;
+  }
+  
+  #pencil-badge {
+    display: none !important; /* Hide pencil badge on phones to avoid overflow */
+  }
+  
+  /* Compact icon-only button bar in header */
+  #gametime-btn, #panel-toggle-btn, #fullscreen-btn, #install-btn, .actions-dropdown > button {
+    font-size: 0 !important;
+    padding: 0 !important;
+    min-width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #gametime-btn::before { content: "⏱️"; font-size: 15px; }
+  #panel-toggle-btn::before { content: "📋"; font-size: 15px; }
+  #fullscreen-btn::before { content: "⛶"; font-size: 15px; }
+  #install-btn::before { content: "📱"; font-size: 15px; }
+  .actions-dropdown > button::before { content: "⚡"; font-size: 15px; }
+  
+  /* Floated tools sidebar over the canvas */
+  .tools-sidebar {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: auto;
+    max-height: 75vh;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: rgba(13, 17, 30, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+    padding: 8px 4px;
+    gap: 4px;
+    z-index: 180;
+  }
+  
+  .tool-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+  }
+  
+  .tool-sep {
+    width: 24px;
+    margin: 4px 0;
+  }
+  
+  /* Premium floating timeline panel */
+  .timeline-panel {
+    bottom: 12px;
+    padding: 6px 10px;
+    border-radius: 16px;
+    gap: 8px;
+    max-width: 92vw;
+  }
+  
+  .timeline-frames {
+    max-width: 110px;
+  }
+  
+  .timeline-frame-chip {
+    width: 24px;
+    height: 24px;
+    font-size: 10px;
+  }
+  
+  .timeline-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+  
+  #timeline-speed {
+    width: 40px;
+  }
+  
+  /* Floating coaching guide popup on phones */
+  .info-card {
+    left: 8px;
+    right: 8px;
+    max-width: none;
+    bottom: 64px;
+    top: auto;
+    height: auto;
+    max-height: 45vh;
+    background: rgba(15, 19, 36, 0.96);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    z-index: 220;
+  }
+  
+  .info-toggle-btn {
+    bottom: 66px;
+    top: auto;
+    right: 12px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1354,14 +1584,28 @@ body.game-time #panel-toggle-btn {
   <div class="header-actions">
     <button class="btn" id="gametime-btn" onclick="toggleGameTime()" title="Game Time Mode" style="color: #f87171; border-color: rgba(248,113,113,0.3); background: rgba(248,113,113,0.05);">⏱️ Game Time</button>
     <button class="btn" id="panel-toggle-btn" onclick="toggleGameTimePanel()" title="Toggle Roster Panel" style="color: #a78bfa; border-color: rgba(167,139,250,0.3); background: rgba(167,139,250,0.05);">📋 Show Panel</button>
-    <button class="btn" onclick="toggleFullScreen()" title="Toggle Full Screen" style="color: #60a5fa; border-color: rgba(96,165,250,0.3); background: rgba(96,165,250,0.05);">⛶ Full Screen</button>
+    <button class="btn" id="fullscreen-btn" onclick="toggleFullScreen()" title="Toggle Full Screen" style="color: #60a5fa; border-color: rgba(96,165,250,0.3); background: rgba(96,165,250,0.05);">⛶ Full Screen</button>
     <button class="btn btn-accent" id="install-btn" style="box-shadow: 0 0 12px rgba(255,107,0,0.6);" onclick="triggerInstall()">📱 Install App</button>
-    <button class="btn" onclick="openUserGuide()" title="User Guide" style="color: #10b981; border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.05);">📖 Guide</button>
-    <button class="btn" onclick="undo()" title="Undo Action">↩ Undo</button>
-    <button class="btn" onclick="redo()" title="Redo Action">↪ Redo</button>
-    <button class="btn" onclick="blowWhistle()" title="Blow Coach Whistle" style="color: var(--accent2)">🔊 Whistle</button>
-    <button class="btn" onclick="clearBoard()">🗑 Clear Board</button>
-    <button class="btn btn-accent" onclick="exportImage()">↓ Export PNG</button>
+    
+    <button class="btn secondary-action" id="guide-btn" onclick="openUserGuide()" title="User Guide" style="color: #10b981; border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.05);">📖 Guide</button>
+    <button class="btn secondary-action" id="undo-btn" onclick="undo()" title="Undo Action">↩ Undo</button>
+    <button class="btn secondary-action" id="redo-btn" onclick="redo()" title="Redo Action">↪ Redo</button>
+    <button class="btn secondary-action" id="whistle-btn" onclick="blowWhistle()" title="Blow Coach Whistle" style="color: var(--accent2)">🔊 Whistle</button>
+    <button class="btn secondary-action" id="clear-btn" onclick="clearBoard()">🗑 Clear Board</button>
+    <button class="btn btn-accent secondary-action" id="export-btn" onclick="exportImage()">↓ Export PNG</button>
+
+    <!-- More Actions Dropdown for Mobile / Tablet -->
+    <div class="actions-dropdown" id="actions-dropdown">
+      <button class="btn" onclick="toggleActionsDropdown(event)" title="More Actions" style="color: var(--accent2); border-color: rgba(255,166,102,0.3); background: rgba(255,166,102,0.05);">⚡ Actions ▾</button>
+      <div class="actions-dropdown-content glass-solid" id="actions-dropdown-content">
+        <button class="dropdown-item" onclick="openUserGuide()"><span class="item-icon">📖</span> Coaching Guide</button>
+        <button class="dropdown-item" onclick="undo()"><span class="item-icon">↩</span> Undo Action</button>
+        <button class="dropdown-item" onclick="redo()"><span class="item-icon">↪</span> Redo Action</button>
+        <button class="dropdown-item" onclick="blowWhistle()"><span class="item-icon">🔊</span> Coach Whistle</button>
+        <button class="dropdown-item" onclick="clearBoard()"><span class="item-icon">🗑</span> Clear Board</button>
+        <button class="dropdown-item btn-accent" style="box-shadow: 0 4px 10px rgba(255,107,0,0.3); background: linear-gradient(135deg, var(--accent), #ff8833); border:none; color:#fff;" onclick="exportImage()"><span class="item-icon">↓</span> Export PNG</button>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -1705,6 +1949,24 @@ body.game-time #panel-toggle-btn {
     document.getElementById('guide-modal').style.display = 'none';
   }
   
+  // Responsive Actions Dropdown support
+  function toggleActionsDropdown(e) {
+    if (e) e.stopPropagation();
+    const content = document.getElementById('actions-dropdown-content');
+    content.classList.toggle('show');
+  }
+  
+  // Close dropdowns if clicked outside
+  document.addEventListener('click', (e) => {
+    const content = document.getElementById('actions-dropdown-content');
+    if (content && content.classList.contains('show')) {
+      const dropdown = document.getElementById('actions-dropdown');
+      if (dropdown && !dropdown.contains(e.target)) {
+        content.classList.remove('show');
+      }
+    }
+  });
+
   // Show the user guide on first load (simulated by checking sessionStorage)
   document.addEventListener('DOMContentLoaded', () => {
     if (!sessionStorage.getItem('hoopTacticalGuideShown')) {
