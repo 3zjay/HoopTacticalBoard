@@ -1648,35 +1648,51 @@ body.game-time #panel-toggle-btn {
 <!-- USER GUIDE MODAL -->
 <div class="modal-overlay" id="guide-modal" style="display: none; align-items: center; justify-content: center; z-index: 2000;">
   <div class="modal glass-solid" style="max-width: 650px; width: 90%; max-height: 85vh; overflow-y: auto; padding: 30px; text-align: left; box-shadow: 0 30px 60px rgba(0,0,0,0.8);">
-    <h2 style="font-family: 'Outfit', sans-serif; color: var(--accent); margin-bottom: 20px; font-size: 22px;">📖 Hoop Tactical Pro: Quick Start Guide</h2>
-    
-    <div style="color: var(--text2); font-size: 14px; line-height: 1.6; font-family: 'Inter', sans-serif;">
-      <h3 style="color: #fff; margin-bottom: 8px; font-size: 16px;">🎨 1. The Environment & Setup</h3>
-      <p style="margin-bottom: 18px;">Use the <b>Right-Hand Sidebar</b> to select your court theme (Stealth Slate, NBA Cup, etc.) and toggle tactical overlays like the Spacing Heatmap and Deep 4-Point Arc.</p>
+    <h2 style="font-family: 'Outfit', sans-serif; color: var(--accent); margin-bottom: 6px; font-size: 22px;">📖 Hoop Tactical Pro — Quick Start Guide</h2>
+    <p style="color: rgba(255,255,255,0.35); font-size: 12px; margin-bottom: 24px; font-family: 'Inter', sans-serif;">v2026.4 · Hoop Culture Network</p>
 
-      <h3 style="color: #fff; margin-bottom: 8px; font-size: 16px;">⛹️ 2. Roster & Player Management</h3>
-      <p style="margin-bottom: 18px;">Drag players from the right sidebar onto the court. The defense (red nodes) features an <b>Auto-Defense Alignment</b> engine—just drag a defender near an offensive player and they will perfectly align between the ball handler and the hoop. Double-click any player to edit their initials.</p>
+    <div style="color: var(--text2); font-size: 14px; line-height: 1.7; font-family: 'Inter', sans-serif;">
 
-      <h3 style="color: #fff; margin-bottom: 8px; font-size: 16px;">✏️ 3. The Drawing Tools (Left Palette)</h3>
+      <h3 style="color: #fff; margin-bottom: 8px; font-size: 15px;">🎨 1. Court Setup &amp; Themes</h3>
+      <p style="margin-bottom: 18px;">Use the <b>Right-Hand Sidebar</b> to select your court theme. The default is <b style="color: #60a5fa;">NCAA Final Four (Blue/Gold)</b>. Other options include Stealth Slate, Classic Oak Hardwood, and NBA Vegas Cup. Toggle overlays like the <b>Spacing Heatmap</b> and <b>Deep 4-Point Arc</b> from the Tactical Toggles section.</p>
+
+      <h3 style="color: #fff; margin-bottom: 8px; font-size: 15px;">⛹️ 2. Roster &amp; Player Management</h3>
+      <p style="margin-bottom: 10px;">Drag individual players from the sidebar onto the court, or use the <b style="color: var(--accent);">📥 Drop All Players on Court</b> button to instantly deploy all 5 offensive (green) and 5 defensive (red) players in one tap — ball auto-snaps to the point guard.</p>
+      <p style="margin-bottom: 18px;">The <b>Auto-Defense Alignment</b> engine automatically positions defenders between the ball handler and the hoop. Double-click any player to edit their jersey initials (e.g. <code>PG</code>, <code>KD</code>).</p>
+
+      <h3 style="color: #fff; margin-bottom: 8px; font-size: 15px;">✏️ 3. Drawing Tools (Left Palette)</h3>
       <ul style="margin-bottom: 18px; padding-left: 20px;">
         <li><b>[V] Select / Move:</b> Drag players and the ball.</li>
-        <li><b>[P] Pencil:</b> Freehand draw.</li>
-        <li><b>[D] Dashed Cut:</b> Draw passing lines.</li>
+        <li><b>[A] Straight Arrow:</b> Draw passing or run lines.</li>
+        <li><b>[D] Dashed Cut:</b> Draw dashed cut lines.</li>
         <li><b>[C] Curved Arrow:</b> Draw smooth movement paths.</li>
-        <li><b>[S] Screen Pick:</b> Draw a T-Bar to represent a screen.</li>
+        <li><b>[S] Screen Pick:</b> Draw a T-Bar screen symbol.</li>
         <li><b>[T] Coaching Note:</b> Type text directly on the court.</li>
         <li><b>[E] Eraser:</b> Delete lines, players, or text.</li>
+        <li><b>[W] Whistle:</b> Blow the coaching whistle.</li>
       </ul>
 
-      <h3 style="color: #fff; margin-bottom: 8px; font-size: 16px;">⏱️ 4. The Timeline & FastBuild Engine</h3>
-      <p style="margin-bottom: 18px;">The timeline dock at the bottom lets you build animated playbooks. Draw paths for your players in Frame 1, then click the glowing <b style="color: #10b981;">FastBuild</b> button. The engine will instantly teleport the players to the ends of their paths and create Frame 2 for you! Use the <b>▶ Play</b> button to watch your sequence animate.</p>
+      <h3 style="color: #fff; margin-bottom: 8px; font-size: 15px;">⏱️ 4. Timeline &amp; FastBuild Engine</h3>
+      <p style="margin-bottom: 18px;">The timeline dock at the bottom lets you build animated playbooks. Draw paths for players in Frame 1, then click <b style="color: #10b981;">FastBuild</b> — the engine teleports players to path endpoints and auto-creates Frame 2. Use <b>▶ Play</b> to watch the full sequence animate.</p>
 
-      <h3 style="color: #fff; margin-bottom: 8px; font-size: 16px;">📖 5. The Pre-Loaded Playbook Library</h3>
-      <p style="margin-bottom: 18px;">Scroll down the right sidebar to access 33+ animated tactical sets. Selecting a play loads an interactive coaching HUD explaining the tactics and "WHAT-IF" scenarios frame-by-frame.</p>
+      <h3 style="color: #fff; margin-bottom: 8px; font-size: 15px;">📖 5. Tactical Playbook (33 Sets)</h3>
+      <p style="margin-bottom: 18px;">Scroll the right sidebar to access 33 elite NBA &amp; NCAA playbook sets across four categories: Modern Offense, Classic &amp; Tactical, Special Inbounds (BLOB/SLOB), and Defensive Systems. Each play loads a coaching HUD with frame-by-frame instructions and WHAT-IF scenarios.</p>
+
+      <h3 style="color: #fff; margin-bottom: 8px; font-size: 15px;">⏱️ 6. Game Time Mode</h3>
+      <p style="margin-bottom: 10px;">Click <b style="color: #f87171;">⏱️ Game Time</b> for a distraction-free full-board view. All editor tools, analytics, and panels auto-hide instantly, giving you maximum court space during live games and timeouts.</p>
+      <p style="margin-bottom: 18px;">Use <b style="color: #a78bfa;">📋 Show Panel</b> to reveal the roster, playbook, and sequence frames on demand without exiting Game Time. The <b>Full / Half Court</b> toggle stays accessible at all times.</p>
+
+      <h3 style="color: #fff; margin-bottom: 8px; font-size: 15px;">📱 7. Install the App on Your Tablet</h3>
+      <p style="margin-bottom: 8px;"><b>Android / Chrome:</b> Tap <b style="color: var(--accent);">📱 Install App</b> in the header to trigger the native install prompt.</p>
+      <p style="margin-bottom: 18px;"><b>Apple iPad / iPhone:</b> Tap <b style="color: var(--accent);">📱 Install App</b> and follow the on-screen instructions (Share → Add to Home Screen in Safari). Once installed the app launches in strict fullscreen — no browser chrome.</p>
+
+      <h3 style="color: #fff; margin-bottom: 8px; font-size: 15px;">⛶ 8. Full Screen</h3>
+      <p style="margin-bottom: 8px;">Tap <b style="color: #60a5fa;">⛶ Full Screen</b> in the header to enter native browser fullscreen mode and maximise court visibility without installing the app.</p>
+
     </div>
 
     <div class="modal-actions" style="margin-top: 25px;">
-      <button class="btn btn-accent" onclick="closeUserGuide()">Got it, let's draw!</button>
+      <button class="btn btn-accent" onclick="closeUserGuide()">Got it, let's coach! 🏀</button>
     </div>
   </div>
 </div>
