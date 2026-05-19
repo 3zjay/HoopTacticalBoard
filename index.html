@@ -1296,7 +1296,32 @@ input[type=range].modern-slider::-webkit-slider-thumb:hover {
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.18); }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.18); }/* ============================================================
+   GAME TIME MODE
+   ============================================================ */
+body.game-time .tools-sidebar,
+body.game-time .bottom-dock,
+body.game-time .status-bar,
+body.game-time .header-center,
+body.game-time .header-actions .btn:not(#gametime-btn) {
+  display: none !important;
+}
+
+body.game-time .right-sidebar > *:not(.roster-element) {
+  display: none !important;
+}
+
+body.game-time .main {
+  height: calc(100vh - 60px);
+}
+
+body.game-time .right-sidebar {
+  width: 200px; /* Make it slimmer so board is bigger */
+}
+
+body.game-time .canvas-wrapper {
+  margin: 10px;
+}
 </style>
 </head>
 <body>
@@ -1321,6 +1346,7 @@ input[type=range].modern-slider::-webkit-slider-thumb:hover {
   </div>
 
   <div class="header-actions">
+    <button class="btn" id="gametime-btn" onclick="toggleGameTime()" title="Game Time Mode" style="color: #f87171; border-color: rgba(248,113,113,0.3); background: rgba(248,113,113,0.05);">⏱️ Game Time</button>
     <button class="btn" onclick="toggleFullScreen()" title="Toggle Full Screen" style="color: #60a5fa; border-color: rgba(96,165,250,0.3); background: rgba(96,165,250,0.05);">⛶ Full Screen</button>
     <button class="btn btn-accent" id="install-btn" style="box-shadow: 0 0 12px rgba(255,107,0,0.6);" onclick="triggerInstall()">📱 Install App</button>
     <button class="btn" onclick="openUserGuide()" title="User Guide" style="color: #10b981; border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.05);">📖 Guide</button>
@@ -1451,15 +1477,15 @@ input[type=range].modern-slider::-webkit-slider-thumb:hover {
       </select>
     </div>
 
-    <div class="rs-title">Active Roster (Off)</div>
-    <div class="player-list" id="offense-list"></div>
+    <div class="rs-title roster-element">Active Roster (Off)</div>
+    <div class="player-list roster-element" id="offense-list"></div>
 
-    <div class="rs-title">Active Roster (Def)</div>
-    <div class="player-list" id="defense-list"></div>
+    <div class="rs-title roster-element">Active Roster (Def)</div>
+    <div class="player-list roster-element" id="defense-list"></div>
 
     <!-- Match Ball Token Switcher -->
-    <div class="rs-title">Possession</div>
-    <div class="ball-token-row">
+    <div class="rs-title roster-element">Possession</div>
+    <div class="ball-token-row roster-element">
       <span class="ball-token-label">🏀 Game Ball</span>
       <label class="toggle-switch">
         <input type="checkbox" id="ball-toggle" checked onchange="toggleBallOnCourt(this.checked)">
@@ -2389,6 +2415,24 @@ function toggleFullScreen() {
   } else {
     document.exitFullscreen();
   }
+}
+
+function toggleGameTime() {
+  const isGameTime = document.body.classList.toggle('game-time');
+  const btn = document.getElementById('gametime-btn');
+  if (isGameTime) {
+    btn.innerHTML = '✕ Exit Game Time';
+    btn.style.color = '#fff';
+    btn.style.background = '#ef4444';
+    // Clear out drawing tools so coach doesn't accidentally draw
+    setTool('select');
+  } else {
+    btn.innerHTML = '⏱️ Game Time';
+    btn.style.color = '#f87171';
+    btn.style.background = 'rgba(248,113,113,0.05)';
+  }
+  // Force resize to make board fill new space
+  setTimeout(resizeCanvas, 50);
 }
 
 // ============================================================
