@@ -800,6 +800,7 @@ input[type=range].modern-slider::-webkit-slider-thumb:hover {
   transform: scale(1.15);
 }
 
+
 /* Pressure Sensitivity & Toggles */
 .toggle-row {
   display: flex;
@@ -1476,6 +1477,8 @@ body.game-time .canvas-wrapper {
         <option value="ncaa">NCAA Final Four (Blue/Gold)</option>
       </select>
     </div>
+
+    <button class="btn btn-accent roster-element" onclick="deployFullRoster()" style="width: 100%; margin-bottom: 15px; font-size: 13px; font-weight: 600; justify-content: center; box-shadow: 0 0 12px rgba(255,107,0,0.3);">📥 Drop All Players on Court</button>
 
     <div class="rs-title roster-element">Active Roster (Off)</div>
     <div class="player-list roster-element" id="offense-list"></div>
@@ -2954,6 +2957,70 @@ function setCourtTheme(theme) {
 // ACTIVE TACTICAL ROSTER MANAGEMENT
 // ============================================================
 let _pid = 0;
+
+function deployFullRoster() {
+  saveState();
+  
+  // Remove existing players so we don't duplicate
+  S.players = [];
+
+  const offRoles = ['PG', 'SG', 'SF', 'PF', 'C'];
+  const defRoles = ['D1', 'D2', 'D3', 'D4', 'D5'];
+
+  // A neutral straight line formation near the top of the key
+  const offBase = [[20, 10], [20, 18], [20, 25], [20, 32], [20, 40]];
+  const defBase = [[16, 10], [16, 18], [16, 25], [16, 32], [16, 40]];
+
+  for (let i = 0; i < 5; i++) {
+    // Math to scale into correct screen coordinates
+    let ox = offBase[i][0];
+    let dx = defBase[i][0];
+    if (S.courtMode === 'half') {
+      ox = 6 + (ox - 6) * 1.65;
+      dx = 6 + (dx - 6) * 1.65;
+    }
+    
+    S.players.push({
+      id: i + 1,
+      x: S.courtX + ox * S.scale,
+      y: S.courtY + offBase[i][1] * S.scale,
+      team: 'O',
+      number: i + 1,
+      color: '#10b981',
+      role: offRoles[i]
+    });
+
+    S.players.push({
+      id: i + 6,
+      x: S.courtX + dx * S.scale,
+      y: S.courtY + defBase[i][1] * S.scale,
+      team: 'D',
+      number: i + 1,
+      color: '#ef4444',
+      role: defRoles[i]
+    });
+  }
+
+  // Snap the ball to the PG
+  S.ball = {
+    x: S.players[0].x + playerRadius() * 0.7,
+    y: S.players[0].y + playerRadius() * 0.7,
+    size: 9,
+    dragging: false
+  };
+
+  S.keyframes[S.currentFrameIdx] = captureFrameData();
+  redraw();
+  
+  // Re-build player chips style to indicate they are active
+  const offList = document.getElementById('offense-list');
+  const defList = document.getElementById('defense-list');
+  
+  // Trigger update
+  if (window.buildPlayerChips) buildPlayerChips();
+  
+  setStatus("Full roster dropped onto the court.");
+}
 
 function buildPlayerChips() {
   const offList = document.getElementById('offense-list');
