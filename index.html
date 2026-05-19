@@ -1462,7 +1462,7 @@ body.game-time .canvas-wrapper {
         <option value="stealth">Stealth Slate (Dark Mode)</option>
         <option value="hardwood">Classic Oak Hardwood</option>
         <option value="vegacup">NBA Cup (Vibrant Neon)</option>
-        <option value="ncaa">NCAA Final Four (Blue/Gold)</option>
+        <option value="ncaa" selected>NCAA Final Four (Blue/Gold)</option>
       </select>
     </div>
 
@@ -1719,7 +1719,7 @@ const COURT = {
 const S = {
   tool: 'select',
   courtMode: 'full',
-  courtTheme: 'stealth', // stealth, hardwood, vegacup, ncaa
+  courtTheme: 'ncaa', // stealth, hardwood, vegacup, ncaa
   
   players: [],
   strokes: [],
@@ -5054,7 +5054,7 @@ function loadPlay(id) {
   
   saveState();
   S.courtMode = entry.courtMode || 'full';
-  S.courtTheme = entry.courtTheme || 'stealth';
+  S.courtTheme = entry.courtTheme || 'ncaa';
   
   // Re-map themes select
   document.getElementById('court-theme-select').value = S.courtTheme;
