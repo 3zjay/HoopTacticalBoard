@@ -1,6 +1,6 @@
-# 🏀 Hoop Tactical Pro (v2026.3)
+# 🏀 Hoop Tactical Pro (v2026.4)
 
-An ultra-premium, glassmorphic basketball coaching playbook and tactical board built for modern **NBA & NCAA** coaching setups. Features real-time spacing heatmaps, synthesized coaching whistles, high-fidelity timeline keyframe animations, professional court themes (including the NBA Cup Vegas theme!), an interactive **Coaching Guide HUD**, and a high-precision **Non-Linear Spacing Engine**.
+An ultra-premium, glassmorphic basketball coaching playbook and tactical board built for modern **NBA & NCAA** coaching setups. Features real-time spacing heatmaps, synthesized coaching whistles, high-fidelity timeline keyframe animations, professional court themes, an interactive **Coaching Guide HUD**, a **Game Time Mode**, and a high-precision **Non-Linear Spacing Engine**.
 
 ---
 
@@ -9,100 +9,94 @@ An ultra-premium, glassmorphic basketball coaching playbook and tactical board b
 ### 🎨 Professional Glassmorphic Aesthetics
 * **Visual Wow-Factor**: Deep space background with harmoniously glowing card elements, translucent sidebars, custom-designed sliders, and vibrant visual states.
 * **Curated Court Flooring Themes**:
-  * **Stealth Slate**: Deep cobalt charcoal oak wood flooring with neon orange boundaries (Default).
+  * **NCAA Final Four** ⭐ *(Default)*: Oak planks with classic royal blue collegiate borders.
+  * **Stealth Slate**: Deep cobalt charcoal oak wood flooring with neon orange boundaries.
   * **Classic Oak Hardwood**: Light oak natural planks with clean vector overlays.
   * **NBA Vegas Cup**: Sleek navy-black court featuring a bold center-striping and neon blue keys.
-  * **NCAA Final Four**: Oak planks with classic royal blue collegiate borders.
 * **Modern Regulation Markings**: Regulation college/pro lines, wider **NCAA Arc widths**, deep **4-Point lines**, and defensive **Spacing Hashmarks**.
 
-### 📈 High-Precision Spacing Engine (v2026.3)
-* **Non-Linear Court Remapping**: Dynamic coordinate transformation that gracefully projects half-court plays into real-world proportions:
-  * **Paint and Post Areas** (`x <= 12`) are preserved with **100% precision** to maintain realistic screen, cut, and post-up locations.
-  * **Perimeter Spacing** (`x > 12`) is non-linearly stretched to align players exactly outside the 23.75-foot NBA/NCAA three-point arc.
-  * **Sideline Corners** are expanded wider (`y = 1.8` and `y = 48.2`) to position shooters perfectly in the deep corner baseline pockets.
-* **Man-to-Man Defender Basket Alignment**: Automatically forces defenders to stand on the **correct basket-side** of their matchup (exactly between the offense and the left hoop) instead of trailing behind.
-* **Selective Zone & Inbound Space Protection**: Detects zone defenses (2-3 Zone, 3-2 Zone, Pack-Line) and inbound plays (BLOB/SLOB) to lock defenders in their designed strategic zone spaces, preventing defensive alignment breakdown.
-* **Translucent Reach Bubbles**: Projects defensive threat zones (`radius * 3.5`) beneath defenders in real-time.
-* **Neon Spacing Aura**: Offensive players glow **neon green** when wide-open, and contour in **neon red** when contested within a defender's reach bubble.
-* **Floating Spacing HUD**: Monitors spacing distance offsets between active offensive players to output an instant **Spacing Score** (e.g. *Pristine*, *Decent*, or *Congested*).
+### 📱 Progressive Web App (PWA) — Tablet & Mobile Install
+* **Install to Home Screen**: A persistent **📱 Install App** button in the header lets coaches install the board directly to their iPad or Android tablet home screen.
+  * **Android/Chrome**: Triggers the native install prompt automatically.
+  * **Apple iPad/iPhone**: Provides step-by-step Safari "Add to Home Screen" instructions.
+* **Full Screen Launch**: Once installed, the app launches in strict fullscreen mode (no browser chrome) for maximum court visibility.
+* **Premium App Icon**: A custom-designed glassmorphic neon-orange basketball + coaching clipboard icon used across all install surfaces.
+* **⛶ Full Screen Button**: Available at all times in the header to enter fullscreen mode without installing.
+
+### ⏱️ Game Time Mode
+* **One-Click Focus Mode**: The **⏱️ Game Time** button strips away all editor noise — drawing tools, left toolbar, analytics, brush settings, and bottom timeline all auto-hide.
+* **Maximum Board Real Estate**: The tactical court canvas expands to fill 100% of the available screen for crystal-clear visibility courtside.
+* **Full/Half Court Toggle**: The court mode switcher remains accessible in Game Time for quick mid-game transitions.
+* **📋 Show Panel Toggle**: A dedicated purple toggle button reveals/hides the right panel (Roster + Playbook + Sequence Frames) on demand without leaving Game Time.
+* **Auto-Reset**: Panel resets to hidden every time Game Time is activated for a clean experience.
+
+### 📥 One-Click Roster Deploy
+* **Drop All Players on Court**: A single button instantly places all 5 offensive (green) and 5 defensive (red) players on the court in a balanced formation, with the ball auto-snapped to the point guard.
+* **Context-Aware Scaling**: Automatically recalculates player positions for both Full Court and Half Court modes.
+* **Undo Support**: The deploy is fully integrated with the undo/redo history stack.
+
+### 📈 High-Precision Spacing Engine (v2026.4)
+* **Non-Linear Court Remapping**: Dynamic coordinate transformation that gracefully projects half-court plays into real-world proportions.
+* **Man-to-Man Defender Basket Alignment**: Automatically forces defenders to stand on the correct basket-side of their matchup.
+* **Selective Zone & Inbound Space Protection**: Detects zone defenses and inbound plays to lock defenders in designed strategic zones.
+* **Translucent Reach Bubbles**: Projects defensive threat zones beneath defenders in real-time.
+* **Neon Spacing Aura**: Offensive players glow **neon green** when wide-open and **neon red** when contested.
+* **Floating Spacing HUD**: Outputs an instant **Spacing Score** (e.g. *Pristine*, *Decent*, or *Congested*).
 
 ### 📖 Interactive Coaching Guide HUD
-* **Tactical Concepts**: Instantly displays the coaching philosophy, tactical theory, and standard applications for every playbook.
-* **Coaching Instructions**: Outputs step-by-step frame instructions in the side control panel, synchronizing with active timeline animations.
-* **Full-Court Press Auto-Switching**: Automatically toggles the board between half-court and full-court rendering depending on the play's tactical scale.
+* **Tactical Concepts**: Displays coaching philosophy and tactical theory for every playbook.
+* **Coaching Instructions**: Step-by-step frame instructions synchronized with timeline animations.
+* **Full-Court Press Auto-Switching**: Automatically toggles board layout based on play's tactical scale.
 
 ### 🎬 Keyframe Timeline Animation Ticker
-* **Multi-Frame Sequencing**: Set up player and ball positions, click `+ Add Keyframe`, adjust positions, and hit playback.
-* **Cubic Easing Interpolator**: Players and ball transition organically on playback using realistic $t = 1 - (1 - \text{progress})^3$ ease-out speed dampening.
-* **Standalone Game Ball**: Orange ball token with black grooves that can be dragged independently or snapped to the nearest player's hands on release.
+* **Multi-Frame Sequencing**: Build player positions, add keyframes, and hit playback.
+* **FastBuild Engine**: Teleports players to the ends of drawn action paths and auto-generates the next frame.
+* **Cubic Easing Interpolator**: Organic ease-out transitions using $t = 1 - (1 - \text{progress})^3$.
+* **Standalone Game Ball**: Drag independently or snap to nearest player on release.
 
 ### 🔊 Dual-Frequency Web Audio Whistle
-* **Synthesized coaching whistle** that operates immediately without large asset files.
-* Blends a `sine` oscillator (2450 Hz) and a `triangle` oscillator (2480 Hz) with a `55 Hz` frequency modulation flutter and rapid gain decay curves to recreate a realistic metallic coaching whistle.
+* Synthesized coaching whistle — no asset files required.
+* Blends `sine` (2450 Hz) + `triangle` (2480 Hz) oscillators with `55 Hz` flutter modulation.
 
 ### 👥 Double-Click Jersey Tag Customizer
-* Click the gear next to any player in the sidebar to custom-label their jersey with roles like `PG`, `SG`, `SF`, `PF`, `C`, or custom role initials (e.g., `6TH`, `SC`, `KD`). These sync dynamically to active chips.
+* Custom-label any player jersey with roles like `PG`, `SG`, `SF`, `PF`, `C`, or custom initials.
 
 ---
 
 ## 🏀 Expanded Catalog: 33 Premium Playbooks
 
-The catalog has been expanded to **33 elite NBA and NCAA playbook sets**, divided into four specialized tactical categories:
-
 ### 🔥 Modern Offense Series
-1. **Delay 5-Out Offense**: Modern spacing set designed to clear the paint for direct backdoor cuts.
-2. **Spain Pick & Roll**: Relentless central pick-and-roll with a back-screen on the roll defender.
-3. **Pistol (21) Action**: Early transition attack using handoffs and quick downhill wing drives.
-4. **Zoom Set Action**: Pin-down screen into a handoff for dynamic rim pressure.
-5. **Flow Motion**: Continuous passing and cutting designed to break standard man-to-man alignments.
-6. **Chicago Action**: Pin-down screen directly into a handoff for immediate three-point shooters.
-7. **Delay Flare Screen**: Secondary break action setting a flare screen for the inbounder.
-8. **Delay Keep Action**: Handoff fake resulting in a direct quarterback keeper drive.
-9. **Spain P&R Leak**: Spain pick-and-roll variation leaking the back-screener to the opposite wing.
-10. **Spain P&R Hammer**: Roll action triggering a weakside hammer screen for a corner shooter.
-11. **Zoom Double Action**: Double handoff sequence to overload the top-of-key.
-12. **Zoom Pitch Action**: Drag screen followed by an immediate pitch-back release.
+1. **Delay 5-Out Offense** | 2. **Spain Pick & Roll** | 3. **Pistol (21) Action** | 4. **Zoom Set Action**
+5. **Flow Motion** | 6. **Chicago Action** | 7. **Delay Flare Screen** | 8. **Delay Keep Action**
+9. **Spain P&R Leak** | 10. **Spain P&R Hammer** | 11. **Zoom Double Action** | 12. **Zoom Pitch Action**
 
 ### 🎯 Classic & Tactical Series
-13. **Horns Flare Set**: Elbow spacing with dual screens and a high shooter flare release.
-14. **Horns Flex Action**: Flex screen from high elbow opening a cutter underneath the basket.
-15. **Horns Rub Handoff**: Handoff fake to clear a shooter along the key lane.
-16. **Princeton Chin Offense**: Backdoor-focused NCAA spacing with high post elbows and backdoor cuts.
-17. **Princeton Point Series**: Guard-to-guard entry triggering an elbow split cut sequence.
-18. **Triangle Post Entry**: Phil Jackson-style triple post spacing focused on low post mismatch entry.
-19. **Triangle Pinch Post**: Handoff off the high elbow to clear baseline drives.
-20. **Triangle Blind Pig**: Inside backdoor cutter play utilizing quick elbow handoffs.
+13. **Horns Flare Set** | 14. **Horns Flex Action** | 15. **Horns Rub Handoff** | 16. **Princeton Chin**
+17. **Princeton Point** | 18. **Triangle Post Entry** | 19. **Triangle Pinch Post** | 20. **Triangle Blind Pig**
 
 ### 📥 Special Inbound Sets (BLOB & SLOB)
-21. **BLOB Stack Inbound**: Baseline out-of-bounds stack set utilizing cross screens to open a layup.
-22. **BLOB Box Screen Set**: Traditional box-set screen alignment creating corner and post options.
-23. **BLOB Line Inbound**: Linear baseline stack forcing split directions.
-24. **SLOB Diamond Action**: Sideline out-of-bounds diamond formation using a curl screen for shooters.
-25. **SLOB Elevator Play**: Double screen closing shut behind the shooter at the top of the key.
+21. **BLOB Stack Inbound** | 22. **BLOB Box Screen** | 23. **BLOB Line Inbound**
+24. **SLOB Diamond Action** | 25. **SLOB Elevator Play**
 
 ### 🛡️ Defensive Systems
-26. **Pack-Line Defense**: Packed interior paint defense forcing deep contested shots.
-27. **1-3-1 Press Trap**: Multi-frame trapping full-court press (with `D5` deep safety and `D3` middle).
-28. **2-3 Zone Motion**: Classic 2-3 Zone defense structure defending high-post overload motion.
-29. **3-2 Zone Defense**: Perimeter-denial zone designed to lock down hot three-point shooting teams.
-30. **Box-and-One Defense**: Shadow defense locking one star player while the other four defend in a zone box.
-31. **Triangle-and-Two**: Extreme shadow defense locking two star shooters while the other three defend in a low triangle.
-32. **2-2-1 Press Trap**: Three-quarter court press designed to trap the ball handler at the sidelines.
-33. **Run-and-Double Defense**: Relentless full-court trapping defense forcing immediate turnovers.
+26. **Pack-Line Defense** | 27. **1-3-1 Press Trap** | 28. **2-3 Zone Motion** | 29. **3-2 Zone Defense**
+30. **Box-and-One** | 31. **Triangle-and-Two** | 32. **2-2-1 Press Trap** | 33. **Run-and-Double**
 
 ---
 
 ## ⌨️ Tactical Keyboard Shortcuts
 
-* **`[W]`** Blow Referee Whistle
-* **`[V]`** Move & Select
-* **`[A]`** Straight Pass / Run Arrow
-* **`[D]`** Dashed Cut Arrow
-* **`[C]`** Curved Run Arrow
-* **`[S]`** Screen Pick Block
-* **`[Z]`** Defensive Zone Box
-* **`[T]`** Text Label Modal
-* **`[E]`** Sponge Eraser Tool
+| Key | Action |
+|-----|--------|
+| `[V]` | Move & Select |
+| `[A]` | Straight Pass / Run Arrow |
+| `[D]` | Dashed Cut Arrow |
+| `[C]` | Curved Run Arrow |
+| `[S]` | Screen Pick Block |
+| `[Z]` | Defensive Zone Box |
+| `[T]` | Text Label Modal |
+| `[E]` | Sponge Eraser Tool |
+| `[W]` | Blow Coach Whistle |
 
 ---
 
@@ -125,16 +119,32 @@ The catalog has been expanded to **33 elite NBA and NCAA playbook sets**, divide
 ## 📂 File Architecture
 
 * **`server.js`** — Lightweight Express asset host.
-* **`index.html`** — Self-contained single-page application containing the HTML structural grids, visual CSS tokens, and JavaScript gameplay physics engine.
+* **`index.html`** — Self-contained single-page application containing HTML, CSS tokens, and JavaScript physics engine.
+* **`manifest.json`** — PWA manifest enabling tablet/mobile installation.
+* **`icons/app-icon.png`** — Premium glassmorphic app icon for home screen installs.
 * **`package.json`** — Project metadata and scripts.
 * **`render.yaml`** — Render PaaS automatic host setup.
 
 ---
 
-## 📝 Release Notes (v2026.3)
+## 📝 Release Notes
+
+### v2026.4 *(Current)*
+* **Game Time Mode**: Full-board distraction-free view with auto-hiding panels, roster, playbook, and a 📋 Show Panel toggle for on-demand access.
+* **One-Click Roster Deploy**: Drop all 10 players (5 offense + 5 defense) onto the court instantly with a single button.
+* **PWA Install Support**: Tablet and mobile installation via `📱 Install App` button with a premium app icon.
+* **Fullscreen Mode**: Native browser fullscreen toggle for maximum court visibility.
+* **NCAA Default Theme**: App now opens on the NCAA Final Four Blue/Gold court by default.
+* **Branding Consistency**: Top-left header logo updated to match the premium PWA app icon.
+* **Full/Half Court in Game Time**: Court mode toggle remains accessible during Game Time.
+* **Sequence Frames Auto-Hide**: Timeline frames hide in Game Time and restore with Show Panel.
+
+### v2026.3
 * **FastBuild Engine**: Teleport players to the end of action lines instantly when building playbook frames.
 * **Premium Legibility**: Upgraded court annotations and text labels to stark white text over a dark translucent slate pill.
-* **In-App Quick Guide**: Embedded a comprehensive, easily-accessible onboarding User Guide directly into the board.
+* **In-App Quick Guide**: Embedded a comprehensive onboarding User Guide directly into the board.
 * **Playbook Scalability**: Expanded playbook sets with deeper 'What-If' scenarios and fixed off-court bounds logic for SLOB/BLOB inbounds and Full-Court press alignments.
+
+---
 
 Built with ❤️ for the Hoop Culture Network · Modern basketball playmaking.
