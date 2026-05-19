@@ -1302,11 +1302,15 @@ body.game-time #anim-controls {
   display: none !important;
 }
 
-/* When panel is shown in game time */
+/* When panel is shown in game time, reveal both sidebar and timeline */
 body.game-time.panel-open .right-sidebar {
   display: flex !important;
   width: 240px;
   flex-shrink: 0;
+}
+
+body.game-time.panel-open #anim-controls {
+  display: flex !important;
 }
 
 body.game-time .main {
