@@ -120,6 +120,7 @@ An ultra-premium, glassmorphic basketball coaching playbook and tactical board b
 
 * **`server.js`** — Lightweight Express asset host.
 * **`index.html`** — Self-contained single-page application containing HTML, CSS tokens, and JavaScript physics engine.
+* **`sw.js`** — Service Worker enabling true offline capability and asset caching.
 * **`manifest.json`** — PWA manifest enabling tablet/mobile installation.
 * **`icons/app-icon.png`** — Premium glassmorphic app icon for home screen installs.
 * **`package.json`** — Project metadata and scripts.
@@ -130,6 +131,7 @@ An ultra-premium, glassmorphic basketball coaching playbook and tactical board b
 ## 📝 Release Notes
 
 ### v2026.4 *(Current)*
+* **True Offline PWA Support**: Full offline capability via a Service Worker (`sw.js`), allowing the app to launch and run seamlessly without an internet connection.
 * **Game Time Mode**: Full-board distraction-free view with auto-hiding panels, roster, playbook, and a 📋 Show Panel toggle for on-demand access.
 * **One-Click Roster Deploy**: Drop all 10 players (5 offense + 5 defense) onto the court instantly with a single button.
 * **PWA Install Support**: Tablet and mobile installation via `📱 Install App` button with a premium app icon.
